@@ -56,6 +56,7 @@ void displayTime(int number) {
     tft.setCursor(30, 70);
     tft.setTextColor(getForegroundColor());
     tft.setTextSize(9);
+    Serial.println(test);
     tft.println(test);
 }
 
@@ -72,7 +73,7 @@ String readSerialCommand() {
 // Note : le protocole est en clair pour l'instant, ce ne sera pas le cas dans la version finale
 void executeCommand(String cmd) {
    if (cmd.length()>0) {
-   Serial.println("Commande executee : "+cmd);
+   
    
   if (cmd == "CHANGE_BGCOLOR") {
     changeBackgroundColor();    
@@ -86,6 +87,7 @@ void executeCommand(String cmd) {
   }
   else if (cmd == "STOP") {
     continuer = false;
+    Serial.println("YOU WIN !");
   }
   }
 }

@@ -1,6 +1,6 @@
 import serial,time
 ser = serial.Serial('/dev/ttyACM0', 9600)
-
+old = ""
 while True:
 	text_file = open('compteur','w+')
 	text_file.write(ser.readline())
