@@ -10,4 +10,5 @@ Note : le script listen.py doit être lancé en background au préalable, sinon 
 
 # TODO:
 * remplacer les commandes en clair par les commandes chiffrées
+* harmoniser l'utilisation des chaînes de caractères (utilisation de char\* / String seulement)
 * commenter les scripts
