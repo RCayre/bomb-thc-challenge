@@ -8,6 +8,6 @@ Programme Arduino - commande de l'écran tactile de la bombe, scripts de communi
 Note : le script listen.py doit être lancé en background au préalable, sinon l'utilisation de write.py provoque un reset du compteur
 
 
-#TODO:
+# TODO:
 * remplacer les commandes en clair par les commandes chiffrées
 * commenter les scripts
