@@ -13,3 +13,7 @@ Note : le script listen.py doit être lancé en background au préalable, sinon 
 * harmoniser l'utilisation des chaînes de caractères (utilisation de char\* / String seulement)
 * permettre l'utilisation d'un /dev/??? différent
 * commenter les scripts
+
+# Bugs rencontrés :
+* La carte arduino reset une fois atteinte la valeur de compteur ~ 56:00 [SEMBLE REGLÉ]
+=> Problème de saturation de la RAM : ajout d'un free dans la procédure displayTime() et d'un Serial.flush() après le delay(1000)
