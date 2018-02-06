@@ -31,5 +31,5 @@
 
     }
 window.onload = function() {
-	setInterval(function() {makeRequest("http://localhost/WebService/read.php?file=compteur");},500);
+	setInterval(function() {makeRequest("read.php?file=compteur");},500);
 }
