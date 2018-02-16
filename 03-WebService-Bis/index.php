@@ -4,8 +4,7 @@ $user_cookie = "";
 $user = "";
   if(isset($_COOKIE["auth"])) {
 	$user_cookie = 	$_COOKIE["auth"];
-	$user = decrypt($user_cookie); 
-	echo "user is " . $user;	
+	$user = decrypt($user_cookie); 	
 	if (isValid($user)){
 		if (strcmp($user,"admin") === 0){
 
