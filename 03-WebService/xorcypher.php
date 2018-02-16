@@ -22,5 +22,5 @@ $message = "START";
 $key = "ZEKEY";
 
 $retour = bin2hex(cypher($message,$key));
-echo "chiffré : ".bin2hex($retour)."\n";
+echo "chiffré : ".	$retour."\n";
 echo "clé retrouvée :".string_xor(sha1($message),hex2bin($retour))."\n";
