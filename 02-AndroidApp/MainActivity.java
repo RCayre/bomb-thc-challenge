@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -37,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
         mStartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMsg.setText("This is StartButton test");
+                mMsg.setText("START command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=START"));
+                    new SendCommandTask().execute(new URL("http://192.168.73.140/action.php?cmd=START"));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -50,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
         mChangeFGButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMsg.setText("This is ChangeForeGroundButton test");
+                mMsg.setText("Change ForeGround command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_FGCOLOR"));
+                    new SendCommandTask().execute(new URL("http://192.168.73.140/action.php?cmd=CHANGE_FGCOLOR"));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -61,9 +64,9 @@ public class MainActivity extends AppCompatActivity {
         mChangeBGButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMsg.setText("This is ChangeBackGroundButton test");
+                mMsg.setText("Change BackGround command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_BGCOLOR"));
+                    new SendCommandTask().execute(new URL("http://192.168.73.140/action.php?cmd=CHANGE_BGCOLOR"));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -73,24 +76,41 @@ public class MainActivity extends AppCompatActivity {
         mStopButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMsg.setText("http://192.168.4.1/action.php?cmd=STOP");
+                mMsg.setText("STOP command is sent");
+                try{
+                    new SendCommandTask().execute(new URL("http://192.168.73.140/action.php?cmd=STOP"));
+                } catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         });
-        // read.php?file=compteur
-        new CountDownTimer(60000, 1000){
-            public void onTick(long millisUntilFinished) {
-                String time = TimeTranform(millisUntilFinished/1000);
-                mTimeRemaining.setTextColor(Color.RED);
-                mTimeRemaining.setText("Time remaining: " + time);
-            }
 
-            public void onFinish() {
-                mTimeRemaining.setText("Game Over!");
-            }
-        }.start();
+
+        try {
+            new DemandTimeTask(new AsyncResponse(){
+                public void processFinish(long time){
+                    // read.php?file=compteur
+                    new CountDownTimer(time, 1000){
+                        public void onTick(long millisUntilFinished) {
+                            //TextView mTimeRemain = (TextView) findViewById(R.id.timeRemaining);
+                            String time = TimeTranform(millisUntilFinished/1000);
+                            mTimeRemaining.setTextColor(Color.RED);
+                            mTimeRemaining.setText("Time remaining: " + time);
+                        }
+
+                        public void onFinish() {
+                            //TextView mTimeRemain = (TextView) findViewById(R.id.timeRemaining);
+                            mTimeRemaining.setText("Game Over!");
+                        }
+                    }.start();
+                }
+            }).execute(new URL("http://192.168.73.140/read.php?file=compteur"));
+        } catch (Exception e){
+            e.printStackTrace();
+        }
 
     }
-    private static String TimeTranform(long time){
+    public  String TimeTranform(long time){
         long h = time/60;
         long sec = time % 60;
         String hS = Long.toString(h);
@@ -99,13 +119,75 @@ public class MainActivity extends AppCompatActivity {
             hS = "0" + hS;
         }
         if  (secS.length() == 1){
-            secS = "0" + hS;
+            secS = "0" + secS;
         }
         return hS + ":" + secS;
     }
-
+    private interface AsyncResponse{
+        void processFinish(long time);
+    }
 
     private class SendCommandTask extends AsyncTask<URL, Integer, String> {
+        protected String doInBackground(URL... urls){
+            int count = urls.length;
+            for(int i = 0; i < count; i++){
+                // Do something here
+                try{
+                    URLConnection conn = urls[i].openConnection();
+                    BufferedReader in = new BufferedReader(
+                            new InputStreamReader(
+                                    conn.getInputStream()));
+                    String line;
+                    String response = "";
+                    while ((line = in.readLine()) != null){
+                        response += line + "\n";
+                    }
+                    in.close();
+                    return  response;
+
+                } catch ( Exception e){
+                    e.printStackTrace();
+                    return "Error occur during send command" + e.toString();
+
+                }
+
+
+            }
+            return "Hello, You should not be here";
+        }
+
+        protected void onPostExecute(String result){
+            TextView mMsg = (TextView) findViewById(R.id.msg);
+            try {
+                JSONObject jObject = new JSONObject(result);
+                boolean aJsonBoolean = jObject.getBoolean("success");
+                String msg = jObject.getString("msg");
+                if (aJsonBoolean){
+                    mMsg.setText("SUCCESS : " + msg);
+                }else{
+                    mMsg.setText("Failed : " + msg);
+                }
+
+
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
+
+
+
+
+    private class DemandTimeTask extends AsyncTask<URL, Integer, String> {
+        private AsyncResponse delegate = null;
+
+        public DemandTimeTask(AsyncResponse delegate){
+            this.delegate = delegate;
+        }
+
+
         protected String doInBackground(URL... urls){
             int count = urls.length;
             for(int i = 0; i < count; i++){
@@ -135,8 +217,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(String result){
-            TextView mMsg = (TextView) findViewById(R.id.msg);
-            mMsg.setText(result);
+            String[] time = result.split(":");
+            long minute = Long.parseLong(time[0]);
+            long second = Long.parseLong(time[1]);
+            long millisec = (minute*60 + second)*1000;
+            delegate.processFinish(millisec);
+
         }
     }
 }
