@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("START command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.73.140/action.php?cmd=START"));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=START"));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("Change ForeGround command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.73.140/action.php?cmd=CHANGE_FGCOLOR"));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_FGCOLOR"));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("Change BackGround command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.73.140/action.php?cmd=CHANGE_BGCOLOR"));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_BGCOLOR"));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("STOP command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.73.140/action.php?cmd=STOP"));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=STOP"));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }.start();
                 }
-            }).execute(new URL("http://192.168.73.140/read.php?file=compteur"));
+            }).execute(new URL("http://192.168.4.1/read.php?file=compteur"));
         } catch (Exception e){
             e.printStackTrace();
         }
