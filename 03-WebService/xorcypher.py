@@ -20,4 +20,5 @@ print "Msg:"+hmsg
 print "Key:"+hkey
 
 a = bin2hex(string_xor(hmsg,hkey))
+print a
 print string_xor(hex2bin(a),hmsg)
