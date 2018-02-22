@@ -86,6 +86,10 @@ int main(int argc, char** argv) {
 	}
 	
 	if (argc == 2) {
+		if (strcmp(argv[1],"3259ad677ea8278ac80fbd5f9fba35d0b0447290")==0) {
+			printf("Forbidden input, sorry  !\n");
+			exit(1);
+		}
 		char *r = xor(argv[1],key);
 		printf("%s\n",r == NULL ? "NOP" : r);
 	}
