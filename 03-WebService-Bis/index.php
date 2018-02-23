@@ -7,7 +7,7 @@ $user = "";
 	$user = decrypt($user_cookie); 	
 	if (isValid($user)){
 		if (strcmp($user,"admin") === 0){
-
+      header("Location: admin.php");
 		}else {
 			header("Location: welcome.php");
 			die();

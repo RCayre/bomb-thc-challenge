@@ -10,7 +10,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		$name = sanitize_user_input($_POST["name"]);
 		if ($name === ""){
 			$nameErr = "Name is not valid";
-		}else{
+		}
+		elseif ($name === "admin") {
+			$nameErr = "User already existe";
+		}
+		else{
 			$cookie =  encrypt($name);
 			setcookie("auth",$cookie, time() + 600,"/");
 			header("Location: index.php");

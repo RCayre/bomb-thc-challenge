@@ -8,7 +8,7 @@ function sanitize_user_input($input){
 }
 
 function session_kill(){
-    $authValue = $_COOKIE['auth'];
+    $authValue = "";
     setcookie('auth',$authValue,time() - 10,"/");
 
 }

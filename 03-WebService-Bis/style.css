@@ -1,0 +1,63 @@
+body {
+	background-color:black;
+}
+#video-fond {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+#video-fond > video {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* 1. Pas de support d'object-fit */
+@media (min-aspect-ratio: 16/9) {
+  #video-fond > video {
+    height: 300%;
+    top: -100%;
+  }
+}
+@media (max-aspect-ratio: 16/9) {
+  #video-fond > video {
+    width: 300%;
+    left: -100%;
+  }
+}
+/* 2. En cas de support d'object-fit, écrase le 1 */
+@supports (object-fit: cover) {
+  #video-fond > video {
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    object-fit: cover;
+  }
+}
+#dessus {
+    position: relative;
+    z-index:10;
+    top:0px;
+    left:0;
+    opacity:0.8;
+    margin:auto;
+    text-align:center;
+    color:white;
+    width:500px;
+    height:510px;
+    padding:20px;
+    border-radius:50px;
+    background-image:url("back.jpg");
+    background-size: 100% 100%;
+}
+#dessus #compteur {
+	position:relative;
+	top:50%;
+	font-size:5em;
+	
+}
