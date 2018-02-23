@@ -24,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     private Button mChangeBGButton;
     private TextView mMsg;
     private TextView mTimeRemaining;
+
+    private Boolean remain = Boolean.TRUE;
+    private String privateKey = "Massaki kishibe";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("START command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=START"));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=START&prepend="+privateKey));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -55,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("Change ForeGround command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_FGCOLOR"));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_FGCOLOR&prepend="+privateKey));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -66,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("Change BackGround command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_BGCOLOR"));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_BGCOLOR&prepend="+privateKey));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -78,14 +82,32 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("STOP command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=STOP"));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=STOP&prepend="+privateKey));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
             }
         });
-
-
+        mTimeRemaining.setTextColor(Color.CYAN);
+        while (remain){
+            try {
+                Thread.sleep(1000);
+                new DemandTimeTask(new AsyncResponse() {
+                    @Override
+                    public void processFinish(String time) {
+                        mTimeRemaining.setText(time);
+                        if (time.equals("00:00")){
+                            remain = Boolean.FALSE;
+                        }
+                    }
+                }).execute(new URL("http://192.168.4.1/read.php?file=compteur"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        mTimeRemaining.setTextColor(Color.RED);
+        mTimeRemaining.setText("GameOver!");
+    /*
         try {
             new DemandTimeTask(new AsyncResponse(){
                 public void processFinish(long time){
@@ -108,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e){
             e.printStackTrace();
         }
-
+    */
     }
     public  String TimeTranform(long time){
         long h = time/60;
@@ -124,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         return hS + ":" + secS;
     }
     private interface AsyncResponse{
-        void processFinish(long time);
+        void processFinish(String time);
     }
 
     private class SendCommandTask extends AsyncTask<URL, Integer, String> {
@@ -217,11 +239,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         protected void onPostExecute(String result){
+            /*
             String[] time = result.split(":");
             long minute = Long.parseLong(time[0]);
             long second = Long.parseLong(time[1]);
             long millisec = (minute*60 + second)*1000;
-            delegate.processFinish(millisec);
+            */
+            delegate.processFinish(result);
 
         }
     }
