@@ -17,6 +17,9 @@ $user = "";
       }
     }
   }
+  elseif ($_GET && isset($_GET['file']) && $_GET['file'] === "compteur") {
+    include("compteur");
+  }
   else{
      header("Location: index.php");
   }
