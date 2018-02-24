@@ -10,7 +10,7 @@
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 
-#define START 30
+#define START 3599
 
 Adafruit_TFTLCD tft;
 unsigned int colors[8] = {BLACK,BLUE,RED,GREEN,CYAN,MAGENTA,YELLOW,WHITE};
@@ -58,6 +58,8 @@ void displayTime(int number) {
     tft.setTextSize(9);
     Serial.println(test);
     tft.println(test);
+    // Eviter un dépassement de mémoire en nettoyant les objets alloués dans le tas
+    free(test);
 }
 
 String readSerialCommand() {
@@ -73,19 +75,19 @@ String readSerialCommand() {
 // Note : le protocole est en clair pour l'instant, ce ne sera pas le cas dans la version finale
 void executeCommand(String cmd) {
    if (cmd.length()>0) {
+   Serial.println(cmd);
    
-   
-  if (cmd == "CHANGE_BGCOLOR") {
+  if (cmd == "6aad8ea9ef6c749f67ff40a9a7866f0bdfc85f2c") { //CHANGE_BGCOLORZESECRET
     changeBackgroundColor();    
   }
-  else if (cmd == "CHANGE_FGCOLOR") {
+  else if (cmd == "7e16590b049220113aae2d35f2249b75b7e80eda") { //CHANGE_FGCOLORZESECRET
     changeForegroundColor();
   }
-  else if (cmd == "START") {
+  else if (cmd == "3596173f163f3cabf68cbe1bef8ed24737aceb76") { //STARTZESECRET
     compteur = START;
     continuer = true;
   }
-  else if (cmd == "STOP") {
+  else if (cmd == "2a8f369ee664cb6e7e975c15e783a9e840a62c6a") { //STOPZESECRET
     continuer = false;
     Serial.println("YOU WIN !");
   }
@@ -98,5 +100,7 @@ void loop(void) {
       displayTime(compteur--);
     }
     delay(1000);
+    // Eviter un débordement de RAM en nettoyant le buffer de sortie
+    Serial.flush();
 }
 
