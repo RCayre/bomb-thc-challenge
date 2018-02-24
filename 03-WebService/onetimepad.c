@@ -57,41 +57,30 @@ char getkey(int n) {
 
 		
 }
-static char* bin2hex(const unsigned char *old, const size_t oldlen)
-{
-    char *result = (char*) malloc(oldlen * 2 + 1);
-    size_t i, j;
-
-    for (i = j = 0; i < oldlen; i++) {
-        result[j++] = hexconvtab[old[i] >> 4];
-        result[j++] = hexconvtab[old[i] & 15];
-    }
-    result[j] = '\0';
-    return result;
-}
-
-
 char *xor(char *clair,char *cle) {
-	char *tmp = malloc(4*sizeof(cle));
-	for (int i=0;i<strlen(cle);i++) {
+	char *tmp = malloc(10*sizeof(cle));
+	for (int i=0;i<10*sizeof(cle);i++) {
 		tmp[i] = clair[i] ^ cle[i];
 	}
-	return bin2hex(tmp,5*sizeof(tmp));
+	return tmp;
 }
 
 int main(int argc, char** argv) {
-	char *key = malloc(40);
+	char *key = malloc(40*sizeof(char));
 	for (int i=0;i<40;i++) {
 		key[i] = getkey(i);
 	}
 	
 	if (argc == 2) {
-		if (strcmp(argv[1],"3259ad677ea8278ac80fbd5f9fba35d0b0447290")==0) {
+		if (strcmp(argv[1],"a22dd78f1b8dbb2a1b716ed0858880e0e3da8d07c")==0) {
 			printf("Forbidden input, sorry  !\n");
 			exit(1);
 		}
 		char *r = xor(argv[1],key);
-		printf("%s\n",r == NULL ? "NOP" : r);
+		for (int i=0;i<10*sizeof(r);i++) {
+			printf("%02x",r[i]);
+		}
+		printf("\n");
 	}
 	return 0;
 }
