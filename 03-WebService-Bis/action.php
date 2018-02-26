@@ -1,15 +1,17 @@
 <?php
 //require_once("hashValues.php");
 
-
+// on suppose que cmd est commandeZESECRET
 if ($_GET && isset($_GET['cmd']) /*&& isset($_GET['prepend'])*/) {
 	header("Content-Type: application/json");
 	$cmd = $_GET['cmd'];
 	//$prepend = $_GET['prepend'];
 	$hash = hash("sha1", /*$prepend . */$cmd);
 	$path = realpath("./onetimepad");
-	passthru($path . " " . $hash,$exit_code);
+	exec($path . " " . $hash, $retour, $exit_code);
+	//passthru($path . " " . $hash,$exit_code);
 	if ($exit_code === 0){
+		passthru("/usr/bin/python send.py " . $retour[0]);
 		echo json_encode(["msg"=>"Command executed","success"=>true]);
 	}
 	elseif ($exit_code === 1) {
