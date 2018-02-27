@@ -72,7 +72,7 @@ int main(int argc, char** argv) {
 	}
 	
 	if (argc == 2) {
-		if (strcmp(argv[1],"a22dd78f1b8dbb2a1b716ed0858880e0e3da8d07c")==0) {
+		if (strcmp(argv[1],"22dd78f1b8dbb2a1b716ed0858880e0e3da8d07c")==0) {
 			printf("Forbidden input, sorry  !\n");
 			exit(1);
 		}
