@@ -1,5 +1,6 @@
 #include <Adafruit_GFX.h>   
 #include <Adafruit_TFTLCD.h>
+// On envoie le sha1 et non la chaîne xorée directement, car les données sont trop longues pour la liaison Serial
 
 #define BLACK   0x0000
 #define BLUE    0x001F

@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTimeRemaining;
 
     private Boolean remain = Boolean.TRUE;
-    private String privateKey = "Massaki kishibe";
+    private String privateKey = "ZESECRET";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("START command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=START&prepend="+privateKey));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=START"+privateKey));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("Change ForeGround command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_FGCOLOR&prepend="+privateKey));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_FGCOLOR"+privateKey));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("Change BackGround command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_BGCOLOR&prepend="+privateKey));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=CHANGE_BGCOLOR"+privateKey));
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 mMsg.setText("STOP command is sent");
                 try{
-                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=STOP&prepend="+privateKey));
+                    new SendCommandTask().execute(new URL("http://192.168.4.1/action.php?cmd=STOP"+privateKey));
                 } catch (Exception e){
                     e.printStackTrace();
                 }

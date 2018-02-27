@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+/*
+NOTE IMPORTANTE : les valeurs indiquées 10*sizeof... permettent d'obtenir la bonne chaîne sur le processeur de la raspberry pi (ARM)
+Elles ne fonctionnent pas pour une architecture x86 (cela a motivé les changements effectués lors des derniers commits)
+*/
 static char hexconvtab[] = "0123456789abcdef";
 
 char getkey(int n) {
