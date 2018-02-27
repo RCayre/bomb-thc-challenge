@@ -23,4 +23,4 @@ ECB is an encryption mode in which the message is splitted into blocks of X byte
 
 The following schema (source: [Wikipedia](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)) explains this method:
 
-![alt text]()
+![ecbencrypt](https://user-images.githubusercontent.com/26149560/36741024-5cc2be06-1be4-11e8-96c4-8c0684934230.PNG)
