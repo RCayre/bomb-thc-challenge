@@ -46,7 +46,7 @@ Si vous avez besoin d'indices, voici une première indice:
 <details>
 <summary>Show</summary>
 
-* Créer utilisateur "aaaaaaaa" (8*a) et "aaaaaaaaaaaaaaaa" (16*a)
+* Créer utilisateur "aaaaaaaa" (8 x a) et "aaaaaaaaaaaaaaaa" (16 x a)
 
    * Est-ce que vous vous rendez compte quelque chose de particulière au cookie "auth"?   
    
@@ -57,6 +57,12 @@ Si vous avez besoin encore des indices, des questions suivants peuvent-être uti
 <details>
 <summary>Show</summary>
 
+   * Le cookie est encodé en base 64. Décodez-le. En python vous pouver taper ce command :
+   
+   ``
+      python -c "print(__import__('base64').b64decode('YourCookieHere'))"
+   ``
+   
    * Quelle est la taille d'un bloc?
    
    * Souvenez-vous le première implication de sécurité en-dessus, comment vous pouvez fabriquer un utilisateur pour lequel le cookie contient le cookie de "admin"?
