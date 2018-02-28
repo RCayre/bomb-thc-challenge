@@ -10,22 +10,59 @@
 ## AndroidGestureForensic
 
 ## Webserver vulnerability
-In this section, you have to first bypass the authentication by cookie and then exploit the LFI in read.php
+In this section, you have to first bypass the authentication by cookie and then exploit the LFI
 ### Authentication by cookie
-Our website uses ECB mode to encrypt username and return to user as a cookie.
+Notre site Web utilise le mode ECB pour chiffrer l'username et retourner à l'utilisateur en tant que cookie.
 
-Your mission is to find a cookie for user "admin" to get access to read.php and admin.php.
+Votre mission est de retrouver un cookie de l'utilisateur "admin" pour avoir accès à la page admin.php.
 
-We will see how this behaviour can impact the authentication and how it can be exploited.
+Nous verrons comment ce comportement peut affecter l'authentification et comment elle peut être exploitée.
 
 #### ECB
-ECB is an encryption mode in which the message is splitted into blocks of X bytes length and each block is encrypted separetely using a key.
+ECB (Electronic codebook) est un mode de chiffrement dans lequel le message est divisé en blocs de longueur de X octets et chaque bloc est chiffré séparément à l'aide d'une clé **unique**.
 
-The following schema (source: [Wikipedia](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)) explains this method:
+Le schéma suivant (source: [Wikipedia](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)) explique cette méthode:
 
 ![ecbencrypt](https://user-images.githubusercontent.com/26149560/36741024-5cc2be06-1be4-11e8-96c4-8c0684934230.PNG)
 
-During the decryption, the reverse operation is used. Using ECB has multiple security implications:
+Pendant le déchiffrement, l'opération inverse est utilisée. L'utilisation de la ECB a de multiples implications de sécurité:
 
-* Blocks from encrypted message can be removed without disturbing the decryption process.
-* Blocks from encrypted message can be moved around without disturbing the decryption process.
+* Les blocs provenant d'un message chiffré peuvent être supprimés sans perturber le processus de déchiffrement.
+* Les blocs d'un message chiffré peuvent être déplacés sans perturber le processus de déchiffrement.
+
+### Remarque : 
+
+Dans ce challenge, vous n'avez pas besoin d'une password pour enregistrer un utilisateur. 
+
+Vous pouvez appuyer sur le touch F12 d'un navigateur web et choisir le tab Console. Tappez-vous ce commande javascript:
+```
+document.cookie="keyofcookie=valueofcookie"
+```
+Vous pouvez remplacer ou ajouter de nouveaux cookies avec cette technique.
+
+
+Si vous avez besoin d'indices, voici une première indice:
+
+<details>
+<summary>Show</summary>
+
+* Créer utilisateur "aaaaaaaa" (8*a) et "aaaaaaaaaaaaaaaa" (16*a)
+
+   * Est-ce que vous vous rendez compte quelque chose de particulière au cookie "auth"?
+   
+</details>   
+
+  Si vous avez besoin encore des indices, voice des questions peuvent-être utiles :   
+
+<details>
+<summary>Show</summary>
+
+   * Quelle est la taille d'un bloc?
+   
+   * Souvenez-vous le première implication de sécurité en-dessus, comment vous pouvez fabriquer un utilisateur pour lequel le cookie contient le cookie de "admin"?
+   
+   * Une fois vous trouvez le cookie, modifiez-vous le à l'aide de document.cookie
+   
+</details>
+   
+   
