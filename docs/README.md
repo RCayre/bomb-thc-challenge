@@ -63,18 +63,37 @@ Si vous avez besoin encore des indices, des questions suivants peuvent-être uti
 <details>
 <summary>Show</summary>
 Le cookie "auth" que vous reveverez est de forme "Ye9iCGOuYQ%3d%3d"
+
 Le "%3d%3d" est url encodé de "**==**" ==> Bonne indice pour base64 string.
-   * Le cookie est encodé en base 64. Décodez-le. En python vous pouver taper ce command :
-   
-   ``
-      python -c "print(__import__('base64').b64decode('YourCookieHere'))"
-   ``
-   
-   * Quelle est la taille d'un bloc?
-   
-   * Souvenez-vous le première implication de sécurité en-dessus, comment vous pouvez fabriquer un utilisateur pour lequel le cookie contient le cookie de "admin"?
-   
-   * Une fois vous trouvez le cookie, modifiez-vous le à l'aide de document.cookie
+
+Essayez-vous de le décoder. En python vous pouver taper ce command pour decoder URL:  
+
+``
+python -c "print(__import__('urllib.parse').parse.unquote('CookieURLencoded'))"
+``
+
+Puis utiliser le nouveau cookie dans cette command : 
+
+``
+python -c "print(__import__('base64').b64decode('YourCookieHere'))"
+``
+
+Voici un example : 
+
+```
+python -c "print(__import__('urllib.parse').parse.unquote('Ye9iCGOuYQ%3d%3d'))"
+
+> Ye9iCGOuYQ==
+
+python -c "print(__import__('base64').b64decode('Ye9iCGOuYQ=='))"
+
+> b'a\xefb\x08c\xaea'
+````
+
+Quelle est la taille d'un bloc?
+
+Pour réponse à cette question, on continue sur l'example. Le résultat de b64decode est sous forme **b' '** car python3 distingue bytes (préfix par b' ') et string. les 2 caractères suivent le **\x** forment 1 byte. Tout les valeurs ne peuvent représent sous ASCII seraeint se présent sous forme hexadécimal avec \x comme préfixe. Donc ici **b'a\xefb\x08c\xaea'** a 7 bytes comme suit : ['a','\xef','b','\x08','c','\xae','a']
+
    
 </details>
    
