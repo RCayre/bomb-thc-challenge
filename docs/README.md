@@ -48,12 +48,12 @@ Si vous avez besoin d'indices, voici une première indice:
 
 * Créer utilisateur "aaaaaaaa" (8*a) et "aaaaaaaaaaaaaaaa" (16*a)
 
-   * Est-ce que vous vous rendez compte quelque chose de particulière au cookie "auth"?
+   * Est-ce que vous vous rendez compte quelque chose de particulière au cookie "auth"?   
    
 </details>   
 
-  Si vous avez besoin encore des indices, voice des questions peuvent-être utiles :   
 
+Si vous avez besoin encore des indices, des questions suivants peuvent-être utiles :   
 <details>
 <summary>Show</summary>
 
