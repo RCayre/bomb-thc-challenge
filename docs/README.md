@@ -50,13 +50,20 @@ Si vous avez besoin d'indices, voici une première indice:
 
    * Est-ce que vous vous rendez compte quelque chose de particulière au cookie "auth"?   
    
+   * Quelle est la taille d'un bloc?
+   
+   * Souvenez-vous le première implication de sécurité en-dessus, comment vous pouvez fabriquer un utilisateur pour lequel le cookie contient le cookie de "admin"?
+   
+   * Une fois vous trouvez le cookie, modifiez-vous le à l'aide de document.cookie
+   
 </details>   
 
 
 Si vous avez besoin encore des indices, des questions suivants peuvent-être utiles :   
 <details>
 <summary>Show</summary>
-
+Le cookie "auth" que vous reveverez est de forme "Ye9iCGOuYQ%3d%3d"
+Le "%3d%3d" est url encodé de "**==**" ==> Bonne indice pour base64 string.
    * Le cookie est encodé en base 64. Décodez-le. En python vous pouver taper ce command :
    
    ``
