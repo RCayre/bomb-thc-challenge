@@ -19,7 +19,7 @@ Votre mission est de retrouver un cookie de l'utilisateur "admin" pour avoir acc
 Nous verrons comment ce comportement peut affecter l'authentification et comment elle peut être exploitée.
 
 #### ECB
-ECB (Electronic codebook) est un mode de chiffrement dans lequel le message est divisé en blocs de longueur de X octets et chaque bloc est chiffré séparément à l'aide d'une clé **unique**.
+ECB (Electronic codebook) est un mode de chiffrement dans lequel le message est divisé en blocs de longueur de X octets et chaque bloc est chiffré séparément à l'aide d'une clé **unique**. Si la taille du message ne divise pas par X, le message va être padder (ajouter des dummies octets)
 
 Le schéma suivant (source: [Wikipedia](https://en.wikipedia.org/wiki/Block_cipher_mode_of_operation)) explique cette méthode:
 
