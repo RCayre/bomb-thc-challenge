@@ -48,7 +48,7 @@ Si vous avez besoin d'indices, voici une première indice:
 
 * Créer utilisateur "aaaaaaaa" (8 x a) et "aaaaaaaaaaaaaaaa" (16 x a)
 
-   * Est-ce que vous vous rendez compte quelque chose de particulière au cookie "auth"?   
+   * Est-ce que vous vous rendez compte quelque chose de particulière aux cookies "auth"?   
    
    * Quelle est la taille d'un bloc?
    
@@ -92,8 +92,11 @@ python -c "print(__import__('base64').b64decode('Ye9iCGOuYQ=='))"
 
 Quelle est la taille d'un bloc?
 
-Pour réponse à cette question, on continue sur l'example. Le résultat de b64decode est sous forme **b' '** car python3 distingue bytes (préfix par b' ') et string. les 2 caractères suivent le **\x** forment 1 byte. Tout les valeurs ne peuvent représent sous ASCII seraeint se présent sous forme hexadécimal avec \x comme préfixe. Donc ici **b'a\xefb\x08c\xaea'** a 7 bytes comme suit : ['a','\xef','b','\x08','c','\xae','a']
+Pour réponse à cette question, on continue l'example. Le résultat de b64decode est sous forme **b' '** car python3 distingue bytes (préfix par b' ') et string. les 2 caractères suivent le **\x** forment 1 byte. Tout les valeurs ne peuvent représent sous ASCII seraeint se présent sous forme hexadécimal avec \x comme préfixe. Donc ici **b'a\xefb\x08c\xaea'** a 7 bytes comme suit : ['a','\xef','b','\x08','c','\xae','a']
 
+Après avoir la taille d'un bloc. Vous pouvez par example créer un utilisateur "a...aadmin" avec "a...a" a la longueur d'un bloc et ensuite extraire le bloc cookie de "admin"
+
+Vous pouvez écrire vous même une script pour exploit ou utiliser notre script **authBypass.py**.
    
 </details>
    
