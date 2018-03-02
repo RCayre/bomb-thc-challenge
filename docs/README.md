@@ -8,6 +8,23 @@
 ## Installation
 
 ## AndroidGestureForensic
+On vous demande dans ce challenge de bypasser le Pattern Locks dans un smartphone android. Vous serez fourni un smartphone que vous devrez retrouver le partern valid pour être capable accéder au application qui sert à l'étape suivant.
+### Comprendre Pattern Locks Android
+
+![android-forgot-lock-pattern-2](https://user-images.githubusercontent.com/26149560/36914215-d3ef2694-1e4c-11e8-9ddf-c09cd66097db.png)
+
+Les motifs ne sont rien d'autre que le chemin tracé par les doigts sur les neuf cercles avec le nombre commençant de 1 à 9 du coin supérieur gauche au coin inférieur droit comme indiqué dans la figure ci-dessus.
+
+Le motif pour déverrouiller est haché et puis sauvegarde dans fichier `gesture.key` dans ``/data/system`` dans la mémoire interne d'Android.
+
+Vous allez besoin Outil Android **adb** (Android Debugger Bridge) pour tirer le fichier gesture.key. Pour simplifier le travail, on vous fournirra `gesture.key`. Votre mission est de déterminer l'algorithme de hasage et retrouver le bon motif.
+
+Si vous avez besoin d'aide :
+
+<details>
+<summary>Cliquer ici</summary>
+
+<\details>
 
 ## Webserver vulnerability
 In this section, you have to first bypass the authentication by cookie and then exploit the LFI
