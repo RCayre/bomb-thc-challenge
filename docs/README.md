@@ -15,16 +15,30 @@ On vous demande dans ce challenge de bypasser le Pattern Locks dans un smartphon
 
 Les motifs ne sont rien d'autre que le chemin tracé par les doigts sur les neuf cercles avec le nombre commençant de 1 à 9 du coin supérieur gauche au coin inférieur droit comme indiqué dans la figure ci-dessus.
 
-Le motif pour déverrouiller est haché et puis sauvegarde dans fichier `gesture.key` dans ``/data/system`` dans la mémoire interne d'Android.
+Le motif pour déverrouiller est en fait un série des chiffres (par example : 87412).Ce série est haché et puis sauvegarde dans fichier `gesture.key` dans ``/data/system`` dans la mémoire interne d'Android. Un motif valid est ce qui donne le même haché stocké dans `gesture.key` (potentiellement plusieurs motifs valids).
 
-Vous allez besoin Outil Android **adb** (Android Debugger Bridge) pour tirer le fichier gesture.key. Pour simplifier le travail, on vous fournirra `gesture.key`. Votre mission est de déterminer l'algorithme de hasage et retrouver le bon motif.
+Vous allez besoin Outil Android **adb** (Android Debugger Bridge) pour tirer le fichier gesture.key. Pour simplifier le travail, on vous fournirra `gesture.key`. 
+
+**Votre mission est de déterminer l'algorithme de hachage et retrouver le bon motif.**
+
+Indice : 
+
+* L'algorithme du hachage utilisé suit la construction Merkle–Damgård 
+
+* La taille maximum du motif est de 7 chiffres.
+
 
 Si vous avez besoin d'aide :
 
 <details>
 <summary>Cliquer ici</summary>
 
-<\details>
+* Quelle est la taille du haché? Quelle est l'algorithme de hachage vous donne cette taille? (Wikipedia peut vous aider pour répondre cette question)
+
+* Les posibilités du motif n'est pas très grand (vous pouvez bruteforcer en prennant le contraint "depuis 1, vous ne pouvez qu'aller au 2 ou 4, etc.")
+</details>
+
+Dans le cas où vous allez besoin, on vous fournirra un script pour vous aider à résoudre ce challenge. 
 
 ## Webserver vulnerability
 In this section, you have to first bypass the authentication by cookie and then exploit the LFI
