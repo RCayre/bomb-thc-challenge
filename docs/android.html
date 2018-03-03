@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="fr" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="fr" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="fr"> <!--<![endif]-->  
+<head>
+    <title>Documentation</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/lightbox/dist/ekko-lightbox.min.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+</head> 
+
+<body class="body-green">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="index.html">
+                            <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                	    <span class="text-bold">Documentation</span>
+                        </a>
+                    </h1>
+                </div><!--//branding-->
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li class="active">Android Forensic</li>
+                </ol>
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon  icon_globe-2"></span> Android Forensic</h1>
+                    <div class="meta"><i class="fa fa-clock-o"></i> Dernière mise à jour: 28 Février 2018</div>
+                </div><!--//doc-header-->
+                <div class="doc-body">
+                    <div class="doc-content">
+                       <section id="presentation" class="doc-section">
+                                <h2 class="section-title">Présentation</h2>
+                                <div id="synopsis"  class="section-block">
+                                    <h3 class="block-title">Synopsis</h3>
+                                    <p>Dr Horrible, cet étourdi, a oublié son téléphone sur les lieux de son méfait. Malheureusement, ce dernier est protégé par un schéma ...
+				<div class="callout-block callout-info">
+								        <div class="icon-holder">
+								            <i class="fa fa-info-circle"></i>
+								        </div><!--//icon-holder-->
+								        <div class="content">
+								            <h4 class="callout-title">Votre mission</h4>
+								            <p>Découvrir le motif de déverrouillage du téléphone ! Pour vous faciliter la tâche, on vous fournit le fichier "gesture.key", extrait d'un dump de la partition /data/system du téléphone. </p>
+                                        </div><!--//content-->
+                                    </div>
+                                    </p>
+				<div class="row">
+				<div id="connection" class="section-block col-sm-6 col-md-6 col-xs-12">
+                                        <h3 class="block-title">Précisions importantes</h3>
+					<p>Il est indispensable de résoudre cette épreuve en premier : elle vous permettra notamment d'accéder à l'application de contrôle de la bombe, qui est indispensable pour la compréhension du protocole de communication.</p>
+<p>Vous devez travailler à partir du fichier "gesture.key". Ce fichier a été extrait de la partition /data/system du téléphone, et contient l'intégralité des données dont vous avez besoin pour retrouver le motif de déverouillage.</p>
+		<p style="text-align:center"><a href="assets/scripts/gesture.key" class="btn btn-purple">gesture.key</a></p>
+				</div>
+				<div class="col-md-6 col-sm-6 col-xs-12">
+				<img src="assets/images/challenge/androidlockempty.png" />
+				</div>
+					</div>
+				<div id="niveaux" class="section-block">
+                                        <h3 class="block-title">C'est parti !</h3>
+					<p>Cette page de documentation est séparée en trois parties, selon le niveau du joueur en sécurité informatique. Vous pouvez sélectionner l'un des trois boutons ci dessous, pour accéder à la présentation des indices spécifiques à votre niveau.</p>
+				<div class="row" style="margin:10px;text-align:center;">
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <a href="#debutant" class="scrollto btn btn-green"><span class="icon icon_lifesaver"></span> Niveau Débutant</a>
+					</div>
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <a href="#intermediaire" class="scrollto btn btn-orange"><span class="icon icon_mug_alt"></span> Niveau Intermédiaire</a>
+					</div>
+                                        <div class="col-md-4 col-sm-4 col-xs-12">
+                                            <a href="#expert" class="scrollto btn btn-red"><span class="icon icon_genius"></span> Niveau Expert</a>
+					</div>    
+					                                             
+                                </div>
+<p>Si vous n'avez jamais pratiqué d'exploitation Android et/ou que vous ne connaissez pas les vulnérabilités les plus courantes liées à cet environnement, sélectionnez le niveau débutant. Le niveau intermédiaire vous permet, armé de quelques connaissances sur les fonctions de hachage, de vous doter de quelques indices supplémentaires. Pour ces deux premiers niveaux, un script python destiné à vous faciliter l'exploitation en un minimum de temps est fourni (et oui, n'oubliez pas, l'heure tourne ! tic tac tic tac ...)  Pour le niveau expert, aucun programme ni information supplémentaire n'est fournie : réservé aux bon connaisseurs des problématiques de sécurité sur Android ! </p>
+<p>Si vous êtes bloqués, n'hésitez pas à nous contacter ... Vous pouvez également visionner la solution directement en fin de page</p>
+					<div class="row">
+						<div class="col-md-12 col-sm-12 col-xs-12" style="text-align:center">
+						    <a href="#solution" class="scrollto btn btn-blue">Solution</a>
+						</div>  
+					</div>
+					</div>
+                                </div><!--//section-block-->
+                                
+                            </section><!--//doc-section-->
+                       <section id="expert" class="doc-section">
+                                <h2 class="section-title"><span class="icon icon_genius"></span>  Niveau Expert</h2>
+<div class="row">                              
+  <div class="col-md-5 col-sm-5 col-xs-12 section-block">
+                                    <p>Alors, vous vous sentez d'attaque ? c'est parti, alors ! A ce stade, vous disposez du fichier gesture.key, qui contient des données binaires résultat d'une fonction de hachage. Mais, laquelle? </p>
+				    <p> Vous devez réflechir particulièrement à la façon dont vous allez mettre en place votre attaque. Il faut déjà déterminer quel type de fonction de hachage est utilisée (réflechissez sur la longueur), pourquoi ce fichier devait se trouver là où on l'a trouvé, et mettre en place un petit script d'exploitation, sans aide de notre part et avec le langage de votre choix.</p>
+<p>Si vous bloquez sur la compréhension de ce qui est attendu, n'hésitez pas :
+<ul>
+<li>A consulter les informations du niveau intermédiaire</li>
+<li>A nous demander de l'aide</li>
+</ul>
+</div>
+
+<div class="col-md-7 col-sm-7 col-xs-12 section-block">
+<p style="text-align:center"><img src="assets/images/challenge/lockedmobile.jpg" /></p>
+</div>
+                                </div><!--//section-block-->
+                       </section><!--//doc-section-->
+                       <section id="intermediaire" class="doc-section">
+                                <h2 class="section-title"><span class="icon icon_mug_alt"></span>  Niveau Intermédiaire</h2>
+                                <div class="section-block">
+                                    <p>Bienvenue dans la partie Niveau Intermédiaire ! Il s'agit ici de vous proposer quelques rappels pour faciliter cette exploitation</p>
+<h4 id="fcthachage">La fonction de hachage</h4>
+<p style="text-align:center"><img src="assets/images/challenge/Hachage.svg" /></p>
+<p>Il existe énormément de fonctions de hachage différentes. Leur rôle est un peu particuliers en cryptographie, car elle ne nécessitent pas de fournir manuellement une clé. Il s'agit de fonctions qui sont non inversibles, donc une fois qu'on a calculé le hashé d'un texte initial en utilisant une fonction de hachage, il n'est en théorie plus possible de retrouver le texte original en se munissant juste du hashé (c'est la propriété dite <em>de non inversibilité </em>). Pour déterminer quelle fonction de hachage a été utilisé, intéressez vous à la longueur de l'empreinte.</p>
+<h4 id="fctntandroid">Le fonctionnement du motif android</h4>
+<p>Lorsque vous enregistrez le motif de votre choix dans le téléphone, à chaque rond sélectionnable correspond un chiffre entre 0 et 8. Chacun de ces chiffres correspond à un octet, et doit donc être noté en hexadécimal 00,01,...,08. L'agencement est le suivant :</p>
+<p><pre><code>____________________
+|0x00 | 0x01 | 0x02|
+|------------------|
+|0x03 | 0x04 | 0x05|
+|------------------|
+|0x06 | 0x07 | 0x08|
+\__________________/
+</code></pre></p>
+<p>Un motif correspond donc à la concaténation des différents chiffres séléctionnés, dans l'ordre de leur séléction. Cette séquence numérique est ensuite transmise dans la fonction de hachage, et stockée telle quelle dans un fichier binaire nommé "gesture.key". Lorsque l'on entre un motif, la séquence correspondante est hachée et android compare le haché produit avec celui stocké dans gesture.key, et autorise le déverouillage si ils sont identiques.</p>
+<h4 id="bruteforce">Le bruteforce</h4>
+<p>Dans notre cas, une approche par bruteforce est possible : nous disposons donc du haché, et nous voudrions retrouver l'antécédent ayant produit ce haché, ce qui est en théorie impossible. Mais dans notre cas, la situation est particulière : le nombre de combinaisons possible est très faible, car l'alphabet est limité à 9 symboles (on se limitera également à une taille de motif de longueur 7 au maximum). Il y a également un certain nombre de contraintes, que nous vous laissons le soin de découvrir, qui se trouvent être très efficace pour réduire un peu plus la taille de l'ensemble des antécédents.</p>
+<p>Vous pouvez, si vous le désirez, développer votre propre script de bruteforce dans le langage de votre choix. Cependant, nous vous proposons d'utiliser un petit programme python que nous avons réalisé pour vous faciliter la tâche. Votre rôle sera donc de le configurer en détail en y indiquant les bonnes valeurs pour réaliser efficacement ce bruteforce. Pour afficher les options disponibles, appellez le script sans argument, et vous devriez découvrir un manuel détaillé sur l'utilisation de cet outil. Bon courage !</p>
+<p>
+<pre>
+<code class="language-python">
+#!/usr/bin/env python
+#encoding:utf-8
+import hashlib
+import binascii
+import os,time
+import sys
+from itertools import chain, product
+
+def usage():
+	print "Usage : {} {} {} {} {} {} {}\n".format(sys.argv[0],"&lt;alphabet&gt;","&lt;fonction de hashage&gt;","&lt;longueur minimale&gt;","&lt;longueur maximale&gt;","&lt;contraintes&gt;","&lt;valeur à inverser&gt;")
+	print "Description : ce script est destiné à retrouver par force brute la valeur d'un antécédent pour une fonction de hashage donnée. Il permet notamment de choisir l'alphabet à utiliser pour générer l'antécédent, un certain nombre de contraintes à respecter (longueur, agencement), ainsi que la fonction de hashage.\n\n"
+	print "\n- &lt;alphabet&gt; : les valeurs hexadécimales de l'alphabet de départ, séparées par des virgules"
+	print "    Exemple : pour utiliser l'alphabet 'abcd', entrer la chaîne '61,62,63,64'"
+	print "\n- &lt;fonction de hashage&gt; : valeur textuelle à choisir entre md4,md5,sha1,sha224,sha256,sha384,sha512"
+	print "    Exemple : pour utiliser la fonction de hashage md5, entrer la chaîne md5"
+	print "\n- &lt;longueur minimale&gt; : longueur (en nombre de symboles) minimale de l'antécédent"
+	print "    Exemple : 3"
+	print "\n- &lt;longueur maximale&gt; : longueur (en nombre de symboles) maximale de l'antécédent"
+	print "    Exemple : 10"
+	print "\n- &lt;contraintes&gt; : chaînes de caractères désignant les contraintes à appliquer à l'antécédent, séparées par des virgules"
+	print "    Exemple : 'sym,diff' pour que l'antécédent soit symétrique et composé de symboles tous différents"
+	print "	   -> Liste des contraintes :"
+	print "		* succ : aucun symbole successif identique dans l'antécédent"
+	print "		* diff : tout les symboles de l'antécédent sont différents"
+	print "		* sym : l'antécédent est symétrique (palindrome)"
+	print "		* asym : l'antécédent est asymétrique"
+	print "\n- &lt;valeur à inverser&gt; : valeur de l'empreinte à trouver"
+	print "    Exemple : f02368945726d5fc2a14eb576f7276c0"
+
+
+def hashfunction(hashtype,cleartext):
+	if hashtype in hashlib.algorithms_available:
+		h = hashlib.new(hashtype)
+		h.update(cleartext)
+		return h.hexdigest()
+	else:
+		return None
+
+def bruteforce(alphabet, minlength,maxlength):
+    return (''.join(candidate)
+        for candidate in chain.from_iterable(product(alphabet, repeat=i)
+        for i in range(minlength, maxlength + 1)))
+
+def contrainte_nonsuccessifs(mot):
+	for i in range(0,len(mot)-1):
+		if mot[i]==mot[i+1]:
+			return False
+	return True
+
+def contrainte_tousdifferents(mot):
+	trouves = []
+	for l in mot:
+		if l in trouves:
+			return False
+		else:
+			trouves.append(l)
+	return True
+
+def contrainte_symetrique(mot):
+	i = 0
+	while i &lt; len(mot):
+		if mot[i] != mot[-i-1]:
+			return False
+		i+=1
+	return True
+	
+def contrainte_asymetrique(mot):
+	return not contrainte_symetrique(mot)
+
+def verifier_contraintes(mot,contraintes):
+	examen = True
+	if "succ" in contraintes:
+		examen = examen and contrainte_nonsuccessifs(mot)
+	if "diff" in contraintes:
+		examen = examen and contrainte_tousdifferents(mot)
+	if "sym" in contraintes:
+		examen = examen and contrainte_symetrique(mot)
+	if "asym" in contraintes:
+		examen = examen and contrainte_asymetrique(mot)
+	return examen
+
+if len(sys.argv) == 7:
+	alphabetascii = sys.argv[1].split(",")
+	hashtype = sys.argv[2]
+	lmin = int(sys.argv[3])
+	lmax = int(sys.argv[4])
+	contraintes = sys.argv[5].split(",")
+	valeur = sys.argv[6]
+	alphabet = []
+	for i in alphabetascii:
+		alphabet.append(binascii.unhexlify(i))
+
+	for mot in bruteforce(alphabet,lmin,lmax):
+		if (verifier_contraintes(mot,contraintes)):
+			motaff = binascii.hexlify(mot)
+			hashmot = hashfunction(hashtype,mot)
+			print "{} -[{}]-&gt; {}".format(motaff,hashtype,hashmot),
+			if hashmot == valeur:
+				print "\033[32m V\033[39m"
+				print "\033[32mHash inversé : {}\033[39m".format(motaff)
+				exit(0)
+			else:
+				print "\033[31m X\033[39m"
+
+	print "Hash non trouvé !"
+	
+
+else:
+	usage()
+
+</code></pre>
+</p>
+
+                                </div><!--//section-block-->
+                       </section><!--//doc-section-->
+                       <section id="debutant" class="doc-section">
+                                <h2 class="section-title"><span class="icon icon_lifesaver"></span>  Niveau Débutant</h2>
+                                <div class="section-block">  
+				<h4 id="comprehension">Compréhension du motif Android</h4> 
+                                    <p>Dans cette partie, nous vous proposons une démarche détaillée, afin de mieux comprendre le principe de cette exploitation. N'hésitez pas à relire les différentes parties, l'objectif est que vous appreniez quelque chose !</p>
+<p>Les motifs ne sont rien d'autre que le chemin tracé par les doigts sur les neuf cercles avec les nombres entre 0 et 8 du coin supérieur gauche au coin inférieur droit comme indiqué dans la figure ci-dessous.</p>
+<p><pre><code>____________________
+|0x00 | 0x01 | 0x02|
+|------------------|
+|0x03 | 0x04 | 0x05|
+|------------------|
+|0x06 | 0x07 | 0x08|
+\__________________/
+</code></pre></p>
+				<p>Les différents nombres sont indiqués à l'aide de leur valeur hexadécimale : on obtient ainsi les correspondances suivantes : </p>
+<p><pre><code>
+Représentation décimale | Représentation hexadécimale
+-----------------------------------------------------
+	  0              |		0x00
+	  1  		   |		0x01
+	  2		   |		0x02
+	  3		   |		0x03
+	  4		   |		0x04
+	  5		   |		0x05
+	  6		   |		0x06
+	  7		   |		0x07
+	  8		   |		0x08
+</code></pre></p>
+<p>
+Ainsi, un motif peut être défini comme une séquence de chiffres entre 0 et 8, indiqué en hexadécimal. Pour tracer un motif correspondant, par exemple, à la lettre "Z", on obtient la séquence suivante : <code>00010204060708</code> (0 1 2 4 6 7 8).
+</p>
+<p>
+Une fois cette séquence enregistrée, la séquence d'octets correspondant au motif est passée en entrée de la fonction de hachage nommée "SHA1". Il s'agit d'une fonction à sens unique, qui à partir d'un texte ou d'une séquence d'octets (un fichier, par exemple), va produire une empreinte de taille fixe (40 caractères en hexadécimal dans le cas de sha1). L'objectif d'une fonction de hachage est d'empêcher de retrouver l'antécédent si on ne dispose que de l'empreinte : c'est la propriété dite de <strong>non inversibilité</strong>.
+</p>
+<p style="text-align:center"><code>antécédent --[Fonction de Hachage]--> empreinte / haché (ou image)</code></p>
+<p>Dans notre cas, cependant, on peut procéder par force brute pour retrouver l'antécédent. En effet, contrairement à l'empreinte d'un mot de passe, par exemple (composé de caractères alphanumériques), on a affaire ici à un ensemble d'antécédents très limités. En effet, il n'y a que peu de combinaisons possibles pour une telle séquence. L'objectif est donc de tester toutes les possibilités possibles (énumération des antécédents par force brute), de calculer l'empreinte SHA1 de la séquence, et de comparer celle ci avec le SHA1 contenu dans le fichier gesture.key.</p>
+<p>Pour vous donner une idée de l'apparence d'une empreinte sha1, vous pouvez taper la commande suivante dans un interpréteur de commande Bash :</p>
+<p style="text-align:center"><code>echo -n "Hello, World" | sha1sum</code></p>
+<p>On obtient ainsi l'empreinte <code>907d14fb3af2b0d4f18c2d46abe8aedce17367bd</code>, qui correspond ainsi au haché du texte "Hello, World" en utilisant la fonction de hachage nommée sha1.</p>
+				<h4 id="extraction">Extraction du haché de gesture.key</h4> 
+				<p>L'utilisation d'un éditeur hexadécimal est indispensable pour extraire l'empreinte du fichier "gesture.key", car il s'agit d'un fichier binaire. Nous vous proposons, pour réaliser cette extraction, d'utiliser la commande <code>hexdump</code> :</p>
+<p style="text-align:center"><code>hexdump gesture.key</code></p>
+<p>Vous allez obtenir une sortie sous cette forme :</p>
+<p><pre><code>0000000 0102 0304 0506 0708 090a 0b0c 0d0e 0f10
+0000010 1112 1314                              
+0000014
+</code></pre></p>
+<p>Attention, cependant : l'affichage est inversé en raison des conventions d'organisation des octets little endian / big endian. Pour remettre le haché dans le bon ordre, il faut relever d'abord le second octet, puis le premier d'un bloc. Dans notre cas, cela nous donne : <code>02010403060508070a090c0b0e0d100f12111413</code>.</p>
+	<h4 id="utilisation">Utilisation du programme assistant</h4> 
+	<p>Pour faciliter cette exploitation, nous vous proposons d'utiliser le script python suivant. Celui ci a été conçus pour faciliter l'exploitation : l'objectif est de vous amener à réflechir sur les différentes options à insérer dans le logiciel pour réussir l'exploitation et retrouver le motif de déverouillage. Voici le code du programme en question :</p>
+<p>
+<pre>
+<code class="language-python">
+#!/usr/bin/env python
+#encoding:utf-8
+import hashlib
+import binascii
+import os,time
+import sys
+from itertools import chain, product
+
+def usage():
+	print "Usage : {} {} {} {} {} {} {}\n".format(sys.argv[0],"&lt;alphabet&gt;","&lt;fonction de hashage&gt;","&lt;longueur minimale&gt;","&lt;longueur maximale&gt;","&lt;contraintes&gt;","&lt;valeur à inverser&gt;")
+	print "Description : ce script est destiné à retrouver par force brute la valeur d'un antécédent pour une fonction de hashage donnée. Il permet notamment de choisir l'alphabet à utiliser pour générer l'antécédent, un certain nombre de contraintes à respecter (longueur, agencement), ainsi que la fonction de hashage.\n\n"
+	print "\n- &lt;alphabet&gt; : les valeurs hexadécimales de l'alphabet de départ, séparées par des virgules"
+	print "    Exemple : pour utiliser l'alphabet 'abcd', entrer la chaîne '61,62,63,64'"
+	print "\n- &lt;fonction de hashage&gt; : valeur textuelle à choisir entre md4,md5,sha1,sha224,sha256,sha384,sha512"
+	print "    Exemple : pour utiliser la fonction de hashage md5, entrer la chaîne md5"
+	print "\n- &lt;longueur minimale&gt; : longueur (en nombre de symboles) minimale de l'antécédent"
+	print "    Exemple : 3"
+	print "\n- &lt;longueur maximale&gt; : longueur (en nombre de symboles) maximale de l'antécédent"
+	print "    Exemple : 10"
+	print "\n- &lt;contraintes&gt; : chaînes de caractères désignant les contraintes à appliquer à l'antécédent, séparées par des virgules"
+	print "    Exemple : 'sym,diff' pour que l'antécédent soit symétrique et composé de symboles tous différents"
+	print "	   -> Liste des contraintes :"
+	print "		* succ : aucun symbole successif identique dans l'antécédent"
+	print "		* diff : tout les symboles de l'antécédent sont différents"
+	print "		* sym : l'antécédent est symétrique (palindrome)"
+	print "		* asym : l'antécédent est asymétrique"
+	print "\n- &lt;valeur à inverser&gt; : valeur de l'empreinte à trouver"
+	print "    Exemple : f02368945726d5fc2a14eb576f7276c0"
+
+
+def hashfunction(hashtype,cleartext):
+	if hashtype in hashlib.algorithms_available:
+		h = hashlib.new(hashtype)
+		h.update(cleartext)
+		return h.hexdigest()
+	else:
+		return None
+
+def bruteforce(alphabet, minlength,maxlength):
+    return (''.join(candidate)
+        for candidate in chain.from_iterable(product(alphabet, repeat=i)
+        for i in range(minlength, maxlength + 1)))
+
+def contrainte_nonsuccessifs(mot):
+	for i in range(0,len(mot)-1):
+		if mot[i]==mot[i+1]:
+			return False
+	return True
+
+def contrainte_tousdifferents(mot):
+	trouves = []
+	for l in mot:
+		if l in trouves:
+			return False
+		else:
+			trouves.append(l)
+	return True
+
+def contrainte_symetrique(mot):
+	i = 0
+	while i &lt; len(mot):
+		if mot[i] != mot[-i-1]:
+			return False
+		i+=1
+	return True
+	
+def contrainte_asymetrique(mot):
+	return not contrainte_symetrique(mot)
+
+def verifier_contraintes(mot,contraintes):
+	examen = True
+	if "succ" in contraintes:
+		examen = examen and contrainte_nonsuccessifs(mot)
+	if "diff" in contraintes:
+		examen = examen and contrainte_tousdifferents(mot)
+	if "sym" in contraintes:
+		examen = examen and contrainte_symetrique(mot)
+	if "asym" in contraintes:
+		examen = examen and contrainte_asymetrique(mot)
+	return examen
+
+if len(sys.argv) == 7:
+	alphabetascii = sys.argv[1].split(",")
+	hashtype = sys.argv[2]
+	lmin = int(sys.argv[3])
+	lmax = int(sys.argv[4])
+	contraintes = sys.argv[5].split(",")
+	valeur = sys.argv[6]
+	alphabet = []
+	for i in alphabetascii:
+		alphabet.append(binascii.unhexlify(i))
+
+	for mot in bruteforce(alphabet,lmin,lmax):
+		if (verifier_contraintes(mot,contraintes)):
+			motaff = binascii.hexlify(mot)
+			hashmot = hashfunction(hashtype,mot)
+			print "{} -[{}]-&gt; {}".format(motaff,hashtype,hashmot),
+			if hashmot == valeur:
+				print "\033[32m V\033[39m"
+				print "\033[32mHash inversé : {}\033[39m".format(motaff)
+				exit(0)
+			else:
+				print "\033[31m X\033[39m"
+
+	print "Hash non trouvé !"
+	
+
+else:
+	usage()
+
+</code></pre>
+</p>
+<p>Pour utiliser ce programme, tapez les commandes suivantes dans un interpréteur : </p>
+<p><code>$ cat > bruteforce.py</code></p>
+<p><code> >>Copier coller ici le contenu du script, puis Ctrl + C <<</code></p>
+<p><code>$ chmod +x bruteforce.py</code></p>
+<p><code>$ python bruteforce.py</code></p>
+
+
+<p>Examinons pour commencer le fichier d'aide :</p>
+<pre><code>
+Usage : bruteforce.py &lt;alphabet&gt; &lt;fonction de hashage&gt; &lt;longueur minimale&gt; &lt;longueur maximale&gt; &lt;contraintes&gt; &lt;valeur à inverser&gt;
+
+Description : ce script est destiné à retrouver par force brute la valeur d'un antécédent pour une fonction de hashage donnée. Il permet notamment de choisir l'alphabet à utiliser pour générer l'antécédent, un certain nombre de contraintes à respecter (longueur, agencement), ainsi que la fonction de hashage.
+
+
+
+- &lt;alphabet&gt; : les valeurs hexadécimales de l'alphabet de départ, séparées par des virgules
+    Exemple : pour utiliser l'alphabet 'abcd', entrer la chaîne '61,62,63,64'
+
+- &lt;fonction de hashage&gt; : valeur textuelle à choisir entre md4,md5,sha1,sha224,sha256,sha384,sha512
+    Exemple : pour utiliser la fonction de hashage md5, entrer la chaîne md5
+
+- &lt;longueur minimale&gt; : longueur (en nombre de symboles) minimale de l'antécédent
+    Exemple : 3
+
+- &lt;longueur maximale&gt; : longueur (en nombre de symboles) maximale de l'antécédent
+    Exemple : 10
+
+- &lt;contraintes&gt; : chaînes de caractères désignant les contraintes à appliquer à l'antécédent, séparées par des virgules
+    Exemple : 'sym,diff' pour que l'antécédent soit symétrique et composé de symboles tous différents
+           -&gt; Liste des contraintes :
+                * succ : aucun symbole successif identique dans l'antécédent
+                * diff : tout les symboles de l'antécédent sont différents
+                * sym : l'antécédent est symétrique (palindrome)
+                * asym : l'antécédent est asymétrique
+
+- &lt;valeur à inverser&gt; : valeur de l'empreinte à trouver
+    Exemple : f02368945726d5fc2a14eb576f7276c0
+
+</code></pre>
+<p>Voyons comment remplir ces différents paramètres :</p>
+<ul>
+<li><strong>Définir l'alphabet :</strong> on a ici affaire à l'alphabet des symboles composant l'antécédent. Dans notre cas, il s'agit des nombres entre 00 et 08, à séparer par des virgules. On doit obtenir une chaîne de la forme <code>??,??,??,?? ...</code></li>
+<li><strong>Définir la fonction de hachage :</strong> il s'agit de la fonction de hachage qui doit être utilisée. Il s'agit bien évidemment de la même que celle utilisée par Android pour stocker gesture.key, il s'agit donc évidemment de la chaîne <code>sha1</code></li>
+<li><strong>Définir les longueurs minimales et maximales :</strong> il s'agit de définir les longueurs minimales et maximales (en nombre de symboles) de l'antécédent. Dans notre cas, on peut considérer qu'un motif fait au moins une longueur de 3 (ce qui correspond à 2 déplacements) et au plus une longueur de 7 (soit 6 déplacements). Si on veut être exhaustif, le motif le plus long possible ferait 9 de longueur maximale. </li>
+<li><strong>Définir les contraintes :</strong> Plusieurs contraintes ont été définies pour limiter le nombre des antécédents à générer. Correctement choisies, elles peuvent permettre de diminuer fortement le temps de calcul du programme de bruteforce. Nous vous laissons réflechir au type de contrainte à mettre en place dans notre cas d'étude. </li>
+<li><strong>Insérer l'empreinte extraite :</strong> ici il suffit d'entrer sous forme hexadécimale l'empreinte sha1 attendu. </li>
+</ul>
+<p>
+Bon courage !
+</p>
+                                </div><!--//section-block-->
+                       </section><!--//doc-section-->
+ 			<section id="solution" class="doc-section">
+                                <h2 class="section-title"><span class="icon icon_key_alt"></span>   La Solution</h2>
+                                <div class="section-block">
+                                    <p style="text-align:center;"><button id="btnsolution" onclick="switcherSolution()" class="btn btn-blue">Afficher la solution</button></p>
+					
+				<div style="display:none;"id="lasolutioncachee">
+                                    <p>Pour mettre en place cette exploitation, nous allons utiliser le programme fourni pour l'exploitation. Il s'agit donc d'un script de bruteforce généraliste, écrit en python, destiné à tenter d'inverser des empreintes.</p>
+<p style="text-align:center"> <a href="assets/scripts/bruteforce.py" class="scrollto btn btn-purple"><span class="icon icon_document"></span> Télécharger le code source</a></p>
+<p>
+<pre>
+<code class="language-python">
+#!/usr/bin/env python
+#encoding:utf-8
+import hashlib
+import binascii
+import os,time
+import sys
+from itertools import chain, product
+
+def usage():
+	print "Usage : {} {} {} {} {} {} {}\n".format(sys.argv[0],"&lt;alphabet&gt;","&lt;fonction de hashage&gt;","&lt;longueur minimale&gt;","&lt;longueur maximale&gt;","&lt;contraintes&gt;","&lt;valeur à inverser&gt;")
+	print "Description : ce script est destiné à retrouver par force brute la valeur d'un antécédent pour une fonction de hashage donnée. Il permet notamment de choisir l'alphabet à utiliser pour générer l'antécédent, un certain nombre de contraintes à respecter (longueur, agencement), ainsi que la fonction de hashage.\n\n"
+	print "\n- &lt;alphabet&gt; : les valeurs hexadécimales de l'alphabet de départ, séparées par des virgules"
+	print "    Exemple : pour utiliser l'alphabet 'abcd', entrer la chaîne '61,62,63,64'"
+	print "\n- &lt;fonction de hashage&gt; : valeur textuelle à choisir entre md4,md5,sha1,sha224,sha256,sha384,sha512"
+	print "    Exemple : pour utiliser la fonction de hashage md5, entrer la chaîne md5"
+	print "\n- &lt;longueur minimale&gt; : longueur (en nombre de symboles) minimale de l'antécédent"
+	print "    Exemple : 3"
+	print "\n- &lt;longueur maximale&gt; : longueur (en nombre de symboles) maximale de l'antécédent"
+	print "    Exemple : 10"
+	print "\n- &lt;contraintes&gt; : chaînes de caractères désignant les contraintes à appliquer à l'antécédent, séparées par des virgules"
+	print "    Exemple : 'sym,diff' pour que l'antécédent soit symétrique et composé de symboles tous différents"
+	print "	   -> Liste des contraintes :"
+	print "		* succ : aucun symbole successif identique dans l'antécédent"
+	print "		* diff : tout les symboles de l'antécédent sont différents"
+	print "		* sym : l'antécédent est symétrique (palindrome)"
+	print "		* asym : l'antécédent est asymétrique"
+	print "\n- &lt;valeur à inverser&gt; : valeur de l'empreinte à trouver"
+	print "    Exemple : f02368945726d5fc2a14eb576f7276c0"
+
+
+def hashfunction(hashtype,cleartext):
+	if hashtype in hashlib.algorithms_available:
+		h = hashlib.new(hashtype)
+		h.update(cleartext)
+		return h.hexdigest()
+	else:
+		return None
+
+def bruteforce(alphabet, minlength,maxlength):
+    return (''.join(candidate)
+        for candidate in chain.from_iterable(product(alphabet, repeat=i)
+        for i in range(minlength, maxlength + 1)))
+
+def contrainte_nonsuccessifs(mot):
+	for i in range(0,len(mot)-1):
+		if mot[i]==mot[i+1]:
+			return False
+	return True
+
+def contrainte_tousdifferents(mot):
+	trouves = []
+	for l in mot:
+		if l in trouves:
+			return False
+		else:
+			trouves.append(l)
+	return True
+
+def contrainte_symetrique(mot):
+	i = 0
+	while i &lt; len(mot):
+		if mot[i] != mot[-i-1]:
+			return False
+		i+=1
+	return True
+	
+def contrainte_asymetrique(mot):
+	return not contrainte_symetrique(mot)
+
+def verifier_contraintes(mot,contraintes):
+	examen = True
+	if "succ" in contraintes:
+		examen = examen and contrainte_nonsuccessifs(mot)
+	if "diff" in contraintes:
+		examen = examen and contrainte_tousdifferents(mot)
+	if "sym" in contraintes:
+		examen = examen and contrainte_symetrique(mot)
+	if "asym" in contraintes:
+		examen = examen and contrainte_asymetrique(mot)
+	return examen
+
+if len(sys.argv) == 7:
+	alphabetascii = sys.argv[1].split(",")
+	hashtype = sys.argv[2]
+	lmin = int(sys.argv[3])
+	lmax = int(sys.argv[4])
+	contraintes = sys.argv[5].split(",")
+	valeur = sys.argv[6]
+	alphabet = []
+	for i in alphabetascii:
+		alphabet.append(binascii.unhexlify(i))
+
+	for mot in bruteforce(alphabet,lmin,lmax):
+		if (verifier_contraintes(mot,contraintes)):
+			motaff = binascii.hexlify(mot)
+			hashmot = hashfunction(hashtype,mot)
+			print "{} -[{}]-&gt; {}".format(motaff,hashtype,hashmot),
+			if hashmot == valeur:
+				print "\033[32m V\033[39m"
+				print "\033[32mHash inversé : {}\033[39m".format(motaff)
+				exit(0)
+			else:
+				print "\033[31m X\033[39m"
+
+	print "Hash non trouvé !"
+	
+
+else:
+	usage()
+
+</code></pre>
+</p>
+<p>Le programme nous demande de fournir de nombreuses informations. Voici les valeurs attendues :</p>
+<ol>
+<li><strong>alphabet :</strong> on doit ici entrer l'alphabet qui servira à générer les antécédents, sous forme hexadécimale. L'information à exploiter était que cet alphabet est composé des nombres entre 0 et 8, chaque nombre correspondant à une case de la grille. La valeur attendue était donc : <code>00,01,02,03,04,05,06,07,08</code></li>
+<li><strong>fonction de hachage :</strong> on doit ici entrer la fonction de hachage. On sait qu'il s'agit d'une empreinte sha1, car elle fait 20 octets de longueur (40 caractères hexadécimaux). Il fallait donc entrer la chaîne <code>sha1</code></li>
+<li><strong>longueurs minimales / maximales :</strong> on doit ici entrer deux bornes, minimale et maximale, pour limiter la taille de l'antécédent. Dans notre cas, on va utiliser 3 minimum et 7 maximum, on doit donc entrer la chaîne : <code>3 7</code></li>
+<li><strong>contraintes :</strong> on a le choix entre plusieurs contraintes. Dans notre cas, deux contraintes sont adéquates : la contrainte diff (tout les symboles sont différents, on ne peut en effet pas repasser sur une case déjà sélectionnée) et la contrainte succ (aucuns symboles successifs identiques, on ne peut en effet pas rester sur le même symbole). On doit donc entrer les chaînes <code>succ,diff</code></li>
+<li><strong>empreinte :</strong> on pouvait relever l'empreinte depuis le fichier gesture.key, avec un éditeur hexadécimal, en prenant soin de faire attention à l'ordre des octets (affichage en little endian). On obtient ainsi : <code>a8a2a07b64c8979dba076b28ec31583a618352fa</code></li>
+</ol>
+<p>Pour récapituler, on obtient ainsi la commande suivante : </p>
+<p style="text-align:center"><code>./bruteforce.py 00,01,02,03,04,05,06,07,08 sha1 3 7 diff,succ a8a2a07b64c8979dba076b28ec31583a618352fa</code></p>
+<p> Finalement, après quelques minutes, on obtient : </p>
+<p><pre>
+<code>
+...
+06030004070502 -[sha1]-> 69112db20355369cabf05a22c3f5f1acdbe32351  X
+06030004070508 -[sha1]-> a0f7e373c7ca3797ae47693f82a174986a9c301b  X
+06030004070801 -[sha1]-> ac3fa8abfb480ed5b22d29f562c0c1d8c4e39f27  X
+06030004070802 -[sha1]-> da6e5aa49fbbc672b4ee88d42d15ab59f861b1d6  X
+06030004070805 -[sha1]-> a004bc7c13a8c1e766b692ed1452b9766f6e96e4  X
+06030004080102 -[sha1]-> d719958da088235d91fe6dcac54d86e5a25c1659  X
+06030004080105 -[sha1]-> b282f9fcd0c9960ccf38b5f052250f012445ffdb  X
+06030004080107 -[sha1]-> ccc67f993e7722a6d2ceef622eaf4a77c7133ccf  X
+06030004080201 -[sha1]-> 6f8e8a5c120b59b9090a73fe97a628964874a35a  X
+06030004080205 -[sha1]-> 857b95c556dd964d4cfe582f8e3184bf9ae045ff  X
+06030004080207 -[sha1]-> 59f8a38f8ce5ee5dd63d532b3fc9da252e4e8369  X
+06030004080501 -[sha1]-> 7a2f9ee18641ea53a77a6d9882f9a2e51af186a7  X
+06030004080502 -[sha1]-> a8a2a07b64c8979dba076b28ec31583a618352fa  V
+Hash inversé : 06030004080502
+
+</code></pre>
+</p>
+<p>Le motif de déverouillage correspond donc à une forme de N : <code>6,3,0,4,8,5,2</code>. </p>
+</div>
+                                </div><!--//section-block-->
+                       </section><!--//doc-section-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar">
+                        <nav id="doc-nav">
+                            <ul id="doc-menu" class="nav doc-menu hidden-xs" data-spy="affix">
+                                <li><a class="scrollto" href="#presentation">Présentation</a></li>
+                                <li><a class="scrollto" href="#expert">Niveau Expert</a></li>
+                                <li><a class="scrollto" href="#intermediaire">Niveau Intermédiaire</a></li>
+				<ul class="nav doc-sub-menu">
+		                        <li><a class="scrollto" href="#fcthachage">La fonction de hachage</a></li>
+		                        <li><a class="scrollto" href="#fctntandroid">Le fonctionnement du motif android</a></li>
+					<li><a class="scrollto" href="#bruteforce">Le bruteforce</a></li>				    </ul>
+                                <li><a class="scrollto" href="#debutant">Niveau Débutant</a></li>
+				<ul class="nav doc-sub-menu">
+		                        <li><a class="scrollto" href="#comprehension">La compréhension du motif android</a></li>
+		                        <li><a class="scrollto" href="#extraction">L'extraction du haché de gesture.key</a></li>
+					<li><a class="scrollto" href="#utilisation">Utilisation du programme assistant</a></li>				    </ul>
+                                <li><a class="scrollto" href="#solution">La Solution</a></li>
+                            </ul><!--//doc-menu-->
+                        </nav>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Développé avec <i class="fa fa-heart"></i> par Romain Cayre et Huon Duong Tran</small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+         <script type="text/javascript">
+	function switcherSolution() {
+		bouton = document.querySelector('#btnsolution');
+		solution = document.querySelector('#lasolutioncachee');
+		if (solution.style.display == "none") {
+			solution.style.display = "block";
+			bouton.innerHTML = "Masquer la solution";		
+		}
+		else {
+			solution.style.display = "none";
+			bouton.innerHTML = "Afficher la solution";
+		}
+	}
+    </script> 
+    <!-- Main Javascript -->          
+    <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>  
+    <script type="text/javascript" src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>                                                                 
+    <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+
