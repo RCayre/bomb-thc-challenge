@@ -12,8 +12,8 @@ if ($_GET && isset($_GET['cmd'])) {
 	$cmd = hash("sha1",$_GET['cmd']);
 	if (in_array($cmd,$authorizedCommands)) {
 		$path = realpath("./onetimepad");
-		$retour = shell_exec("$path $cmd");
-		passthru("/usr/bin/python send.py $retour");
+		$retour = shell_exec("$path $cmd"); // note : $retour contient le output du command à executer (ici le chiffré du $cmd)
+		passthru("/usr/bin/python send.py $retour"); // note : envoyer le chiffré vers l'andruino
 		echo json_encode(["msg"=>"Command executed","success"=>true]);
 	}
 	else echo json_encode(["msg"=>"Command disabled","success"=>false]);
