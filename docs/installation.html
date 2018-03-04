@@ -45,14 +45,14 @@
                 </div><!--//branding-->
                 <ol class="breadcrumb">
                     <li><a href="index.html">Accueil</a></li>
-                    <li class="active">Installation</li>
+                    <li class="active">Installation & Mise en place</li>
                 </ol>
             </div><!--//container-->
         </header><!--//header-->
         <div class="doc-wrapper">
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
-                    <h1 class="doc-title"><span aria-hidden="true" class="icon  icon_globe-2"></span> Installation</h1>
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon  icon_globe-2"></span> Installation & Mise en place</h1>
                     <div class="meta"><i class="fa fa-clock-o"></i> Dernière mise à jour: 28 Février 2018</div>
                 </div><!--//doc-header-->
                 <div class="doc-body">
@@ -71,8 +71,8 @@
 </ol>
  				</div>
 		       </section>
-                       <section id="expert" class="doc-section">
-                                <h2 class="section-title"><span class="icon icon_cogs"></span> Environnement Matériel</h2>
+                       <section id="envmat" class="doc-section">
+                       <h2 class="section-title"><span class="icon icon_cogs"></span> Environnement Matériel</h2>
 				<p>Nous avons utilisé, pour mener à bien ce projet, un certain nombre de composants matériels, listés ci-dessous.</p><p><strong>Le jour de la présentation du Challenge, nous apporterons le matériel nécessaire à la mise en place de l'atelier, afin d'éviter un achat potentiel de matériel à l'organisation.</strong></p>
 <div class="row">
 <div class="col-md-6 col-sm-6 col-xs-6">
@@ -137,11 +137,11 @@
 </ul>
 <p><strong>Pour mener à bien le challenge, il est nécessaire de disposer d'au moins un ordinateur disposant d'une connection Wifi, de préférence équipé d'une distribution GNU/Linux standard. Nous pouvons apporter un ordinateur portable correspondant à ces critères.</strong></p>
                        </section><!--//doc-section-->
-                       <section id="debutant" class="doc-section">
+                       <section id="envlog" class="doc-section">
                                 <h2 class="section-title"><span class="icon icon_folder"></span> Environnement logiciel</h2>
                                 <div class="section-block">
 				<p> Dans cette partie, nous allons détailler l'installation des différents composants logiciels nécessaires au fonctionnement du Challenge. Dans la mesure du possible, nous avons tenté d'utiliser des solutions Open Source efficaces et compatibles avec notre matériel.</p>
-<h3>Structure du dépôt</h3>
+<h3 id="structuredepot">Structure du dépôt</h3>
 <p> Le dépôt que nous proposons est composé des éléments suivants : </p>
 <ul style="list-style-type:none;color:grey">
 <li><span class="icon icon_folder"></span> 01-AndroidGestureForensic <em style="color:black">: contient les fichiers nécessaires à l'étape Android Forensic</em></li>
@@ -208,7 +208,7 @@
 <li><span class="icon icon_folder"></span> docs <em style="color:black">: contient la documentation</em></li>
 </ul>
 
-<h3>Installation de l'environnement logiciel du Raspberry Pi</h3>
+<h3 id="raspberrypi">Installation de l'environnement logiciel du Raspberry Pi</h3>
 <p>Dans cette partie, nous allons détailler l'installation des composants logiciels nécessaires sur le Raspberry Pi. Nous avons réalisé un script de déploiement automatique (disponible dans le dossier <strong>05-DeploymentScripts</strong>) pour automatiser l'installation des logiciels (une fois le système d'exploitation installé), mais nous détaillerons ici l'installation et le rôle des différents composants.</p>
 <h4>Téléchargement et installation du système d'exploitation</h4>
 <p>Pour l'installation de Raspbian sur la carte SD, nous procéderons depuis une distribution GNU/Linux standard (dans notre cas, une Fedora 27) par commodité. </p><p>Nous avons choisi d'utiliser une distribution Linux conçue sur mesure pour le Raspberry Pi, et dérivée de Debian : il s'agit de la distribution Raspbian. Celle ci est disponible en deux versions : avec environnement de bureau (<strong>Raspbian Stretch with desktop</strong>) ou sans (<strong>Raspbian Stretch Lite</strong>). </p><p>Le Raspberry Pi étant principalement destiné à servir de serveur, il n'était pas nécessaire d'installer un environnement de bureau. Nous avons donc préféré utiliser la version Raspbian Stretch Lite, que vous pouvez télécharger depuis le site officiel, ou directement en cliquant sur le lien ci dessous :</p>
@@ -365,48 +365,67 @@ $ sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump</code></pre>
 $ sudo reboot
 </code></pre>
 <p>La configuration du Raspberry Pi est à présent terminée.</p>
-<h3>Installation du programme Arduino</h3>
+<h3 id="arduino">Installation du programme Arduino</h3>
 <p>Dans cette partie, nous allons détailler la compilation et l'envoi du programme sur la carte Arduino Uno. La spécificité de cette étape est de nécessiter l'environnement de développement arduino, et l'installation de librairies tierces fournies par Adafruit pour faire fonctionner l'écran LCD.</p>
 <p>Après installation de l'environnement arduino (<code>sudo apt install arduino</code> sur Debian/Ubuntu, <code>sudo dnf install arduino</code> sur Fedora), nous ouvrons notre fichier bomb.ino :</p>
-<h6>Image Ici</h6>
-<p>Il est ensuite nécessaire d'ajouter nos librairies, disponibles dans les dossiers <strong>Adafruit-GFX-Library</strong> et <strong>TFTLCD-Library</strong> : </p>
-<h6>Image Ici</h6>
+<p style="text-align:center"><img src="assets/images/challenge/arduino1.png" /></p>
+<p>Il est ensuite nécessaire d'ajouter nos librairies, disponibles dans le dossier <strong>04-ArduinoProgram</strong> (il s'agit des fichiers <strong>Adafruit-GFX-Library.zip</strong> et <strong>TFTLCD-Library.zip</strong>) : </p>
+<p style="text-align:center"><img src="assets/images/challenge/arduino2.png" /></p>
 <p>Finalement, on clique sur le bouton "Compilation et téleversement" pour transmettre le programme à la carte arduino, après avoir éventuellement sélectionné "Arduino Uno" dans "type de cartes". Une fois le programme en ligne, on peut connecter l'arduino au Raspberry Pi grâce au câble USB/série.</p>
+<p style="text-align:center"><img src="assets/images/challenge/arduino3.png" /></p>
+<h3 id="android">Installation et paramétrage du téléphone Android</h3>
+<h4>Configuration du schéma</h4>
+<p>La première étape pour l'installation du téléphone Android, est de configurer le schéma. Dans notre cas, nous avons choisi de mettre en place un motif correspondant à une forme de "N".</p>
+<p>Tout d'abord, il est nécessaire de dérouler la barre de notifications, puis de cliquer sur <em>Paramètres</em>, <em>Appareil</em> puis <em>Ecran de Verouillage</em> :</p>
+<p style="text-align:center"><img src="assets/images/challenge/android1.png" /></p>
+<p>Ensuite, cliquez sur <em>Déverouillage de l'écran</em> : </p>
+<p style="text-align:center"><img src="assets/images/challenge/android2.png" /></p>
+<p>On sélectionne ensuite la sécurité par <em>Modèle</em>, qui correspond à un motif de déverouillage :</p>
+<p style="text-align:center"><img src="assets/images/challenge/android3.png" /></p>
+<p>Finalement, on dessine la lettre 'N' sur la grille, puis on valide pour enregistrer le motif :</p>
+<p style="text-align:center"><img src="assets/images/challenge/android4.png" /></p>
 
-<h3>Installation et paramétrage du téléphone Android</h3>
-<p>La première étape pour l'installation du téléphone Android, est 
-
-				- structure du dépôt
-				- lien de dl 
-				- installation manuelle
-				- installation automatique
-
+<h4>Déploiement de l'application</h4>
+<p>Pour terminer la configuration du téléphone, il faut installer l'application android. Pour cela, il est possible d'utiliser l'utilitaire <code>adb</code> (<em>Android Debug Bridge</em>).</p>
+<p>Cette mise en place nécessite que le mode développeur ait été activé sur le téléphone. Pour activer le mode développeur, il faut se rendre dans les paramètres du téléphone, sélectionner <em>A propos du téléphone</em>, taper 5 fois sur <em>Numéro de Build</em>. Cela permet l'apparition du menu <em>Option pour les développeurs</em>. Dans celui ci, on pourra sélectionner la case <em>Débogage USB</em>, puis activer l'installation de sources inconnues.</p>
+	<p style="text-align:center"><img src="assets/images/challenge/android5.jpg" /></p>		
+<p>Il est désormais très simple d'installer notre application. Après avoir installé l'utilitaire <code>adb</code> (<code>sudo apt install adb</code> sur Debian / Ubuntu, <code>sudo dnf install adb</code> sur Fedora), on peut taper les commandes suivantes pour procéder à l'installation : </p>	
+<pre><code>
+$ adb devices
+List of devices attached 
+040140621600C00D	device
+$ adb install -r 02-AndroidApp/app-release-unsigned.apk
+Success
+</code></pre>
+<p>L'application est désormais installée sur le téléphone !</p>
+<h2 id="miseenroute">Mise en route du challenge</h2>
+                                        <p><code><u>SSID:</u> DrHorriblesBombChallenge</code></p>
+                                        <p><code><u>Clé:</u> drhorrible </code></p>
+<p> Pour mettre en route le challenge, il faut successivement : </p>
+<ol>
+<li>Connecter le dongle Wifi et la carte arduino sur le Raspberry Pi </li>
+<li>Mettre sous tension le Raspberry Pi </li>
+<li>Allumer le téléphone android, le connecter au réseau sans fil, verrouiller le téléphone</li>
+<li>A l'aide d'un ordinateur supplémentaire, se connecter au réseau sans fil, puis accéder à l'URL suivante à l'aide d'un navigateur : <code>http://192.168.4.1/init.php</code></li>
+</ol>
+<p> Tout est désormais installé et bien configuré, le challenge est prêt à être utilisé !</p>
             </div><!--//section-block-->
                        </section><!--//doc-section-->
- 			<section id="solution" class="doc-section">
-                                <h2 class="section-title"><span class="icon icon_key_alt"></span>   La Solution</h2>
-                                <div class="section-block">
-
-                                </div><!--//section-block-->
-                       </section><!--//doc-section-->
+ 			
                     </div><!--//doc-content-->
                     <div class="doc-sidebar">
                         <nav id="doc-nav">
                             <ul id="doc-menu" class="nav doc-menu hidden-xs" data-spy="affix">
-                                <li><a class="scrollto" href="#presentation">Présentation</a></li>
-                                <li><a class="scrollto" href="#expert">Niveau Expert</a></li>
-                                <li><a class="scrollto" href="#intermediaire">Niveau Intermédiaire</a></li>
+                                <li><a class="scrollto" href="#presentationgenerale">Présentation</a></li>
+                                <li><a class="scrollto" href="#envmat">Environnement Matériel</a></li>
+                                <li><a class="scrollto" href="#envlog">Environnement Logiciel</a></li>
 				<ul class="nav doc-sub-menu">
-		                        <li><a class="scrollto" href="#sniff">Ecoute passive du réseau</a></li>
-		                        <li><a class="scrollto" href="#examensources">L'examen des sources</a></li>
-					<li><a class="scrollto" href="#chiffrementotp">Le chiffrement</a></li>
-<li><a class="scrollto" href="#envoichiffre">L'envoi du message</a></li>				    </ul>
-                                <li><a class="scrollto" href="#debutant">Niveau Débutant</a></li>
-                                    <ul class="nav doc-sub-menu">
-		                        <li><a class="scrollto" href="#comprehension">Compréhension du protocole</a></li>
-		                        <li><a class="scrollto" href="#exploitation">Exploitation</a></li>
-				    </ul>
-                                <li><a class="scrollto" href="#solution">La Solution</a></li>
+		                        <li><a class="scrollto" href="#structuredepot">Structure du dépôt</a></li>
+		                        <li><a class="scrollto" href="#raspberrypi">Raspberry Pi</a></li>
+					<li><a class="scrollto" href="#arduino">Arduino</a></li>
+<li><a class="scrollto" href="#android">Android</a></li>				    </ul>
+                                <li><a class="scrollto" href="#miseenroute">Mise en route du Challenge</a></li>
+                                    
                             </ul><!--//doc-menu-->
                         </nav>
                     </div><!--//doc-sidebar-->
