@@ -65,5 +65,9 @@ cd /var/www/html
 gcc onetimepad.c -o onetimepad
 rm onetimepad.c
 
+# Suppression des fichiers solutions
+rm exploit*.py
+rm xorcypher.*
+
 # Redémarrage
 sudo reboot
