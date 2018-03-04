@@ -18,4 +18,4 @@ if ($_GET && isset($_GET['cmd'])) {
 	}
 	else echo json_encode(["msg"=>"Command disabled","success"=>false]);
 }
-else system("whoami");
+else echo "Aucun message reçu !";
