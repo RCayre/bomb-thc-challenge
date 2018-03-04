@@ -78,7 +78,7 @@ char getkey(int n) {
 *
 *  Paramètres :
 *  clair : le message à chiffré
-*  cle : le clé utilisé pour chiffré le message
+*  cle : le clé utilisé pour chiffrer le message
 *
 *  Retour :
 *  Le chiffré du message.
@@ -98,7 +98,7 @@ int main(int argc, char** argv) {
 	}
 	
 	if (argc == 2) {
-		// Le haché du commnd STOP n'est pas accepté et donc ne donne pas le chiffrement du STOP
+		// Le haché du commnd STOP n'est pas accepté et donc ne donne pas le chiffré du STOP
 		if (strcmp(argv[1],"22dd78f1b8dbb2a1b716ed0858880e0e3da8d07c")==0) {
 			printf("Forbidden input, sorry  !\n");
 			exit(1);
