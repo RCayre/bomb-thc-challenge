@@ -69,7 +69,7 @@
  				</div>
 		       </section>
                        <section id="android" class="doc-section">
-                       <h2 class="section-title"><span class="icon icon_cogs"></span> 1. Android Forensic</h2>
+                       <h2 class="section-title"><span class="icon icon_mobile"></span> 1. Android Forensic</h2>
 <div class="row">
 <div class="col-md-6 col-sm-6 col-xs-6">
 				<p>Cette étape a été réalisée par Romain Cayre et documenté par Hong Duong Tran. L'idée principale était de proposer un challenge ludique, qui permettent de comprendre le fonctionnement d'Android du point de vue de la sécurité.</p>
@@ -98,7 +98,7 @@
 </div>
 </div>
                        <section id="web" class="doc-section">
-                       <h2 class="section-title"><span class="icon icon_cogs"></span> 2. Exploitation Web</h2>
+                       <h2 class="section-title"><span class="icon icon_globe-2"></span> 2. Exploitation Web</h2>
 <p>Pour cette seconde étape, la démarche était de développer une application Web qui soit exploitable facilement, de préférence avec plusieurs techniques différentes, mais également d'implémenter les différents éléments pour la communication entre le téléphone Android, le Raspberry Pi et l'Arduino. Il s'agit donc de l'étape ayant demandé le plus de travail.</p>
 <p>Au niveau de la répartition des rôles, l'application Android a été développée par Hong Duong Tran, l'application web et le programme Arduino par Romain Cayre. La documentation a été écrite par Romain Cayre.</p>
 <p>Il s'agissait, lors de cette étape, de mettre en place le système de communication sans se préoccuper des problématiques liées au chiffrement One Time Pad. Le développement du programme Arduino a donc été réalisé dans un premier temps en recevant directement les messages en clair. </p>
@@ -154,7 +154,7 @@
 
                        </section><!--//doc-section-->
                       <section id="protocole" class="doc-section">
-                       <h2 class="section-title"><span class="icon icon_cogs"></span> 3. Compréhension du protocole</h2>
+                       <h2 class="section-title"><span class="icon icon_chat_alt"></span> 3. Compréhension du protocole</h2>
 <p>Pour cette dernière étape, il a fallu intégrer le chiffrement One Time Pad et la concaténation d'un secret aux messages clairs aux composants précédents. Le développement côté Raspberry Pi / Arduino a été réalisé par Romain Cayre, les adaptations de l'application Android ont été prises en charge par Hong Duong Tran. La documentation a été écrite par Romain Cayre. </p>
 <p>Cette étape a nécessité plusieurs modifications, et a posé de nombreux problèmes. Tout d'abord, il a fallu trouver une solution pour résoudre le problème de la taille différente des messages, qui rendait compliqué l'implémentation du One Time Pad. Pour pallier à cette problématique, nous avons choisi d'utiliser non pas les messages clairs directement, mais leur empreinte sha1, afin de normaliser la taille.</p>
 <p>Nous nous sommes également retrouvé confronté à une problématique imprévue : le chiffrement one time pad avait pour conséquence que certains octets n'étaient plus des caractères imprimables, après chiffrement. Nous avons donc décidé d'utiliser la fonction PHP bin2hex, afin d'obtenir une chaîne uniquement composée de caractères hexadécimaux. Ce choix a eu l'effet collatéral de rendre le message chiffré trop long pour être transmis par la liaison série à l'arduino. Afin de ne pas compliquer l'implémentation et que cette problématique n'influe pas sur l'expérience utilisateur, nous avons décidé de vérifier les empreintes sha1 des chiffrés (et non le chiffré en lui même) du côté du programme Arduino, et nous avons intégré la transformation du sha1 dans le programme python <code>send.py</code> afin que cela soit transparent pour l'utilisateur.</p>
@@ -212,7 +212,7 @@
 </ul>
                        </section><!--//doc-section-->
                         <section id="cookies" class="doc-section">
-                       <h2 class="section-title"><span class="icon icon_cogs"></span> 4. Cookies chiffrés en AES - ECB</h2>
+                       <h2 class="section-title"><span class="icon icon_lock-open"></span> 4. Cookies chiffrés en AES - ECB</h2>
 <p>Une étape supplémentaire a été implémentée : celle ci a entièrement été développée par Hong Duong Tran, ainsi que sa documentation. Elle consistait à mettre en place une authentification par cookies chiffrés via un chiffrement de type ECB, aurait été insérée avant l'exploitation Web et aurait dû être résolue en profitant de la caractéristique d'un chiffrement ECB de chiffrer de façon identique deux blocs clairs similaires. Cependant, suite à un entretien avec notre tuteur, nous avons décidé de ne pas l'intégrer en raison de la complexité du challenge déjà existant, du temps limité pour réaliser le challenge dans son intégralité et car certains éléments (cryptographie / web) étaient redondants avec des étapes déjà intégrées.</p>
 <p>Le code de cette étape est disponible dans son intégralité dans le dossier <code>03-WebService-Bis</code>. Il a nécessité un investissement temporel important de la part de Hong Duong Tran.</p>
 </section>                    

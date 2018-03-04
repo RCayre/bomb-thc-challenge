@@ -52,7 +52,7 @@
         <div class="doc-wrapper">
             <div class="container">
                 <div id="doc-header" class="doc-header text-center">
-                    <h1 class="doc-title"><span aria-hidden="true" class="icon    icon_table "></span> Authentification par Cookies</h1>
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon      icon_lock-open  "></span> Authentification par Cookies</h1>
                     <div class="meta"><i class="fa fa-clock-o"></i> Dernière mise à jour: 28 Février 2018</div>
                 </div><!--//doc-header-->
                 <div class="doc-body">
@@ -68,13 +68,13 @@
  				</div>
 		       </section>
                        <section id="authcookies" class="doc-section">
-                       <h2 class="section-title"><span class="icon icon_cogs"></span> Authentification par cookies</h2>
+                       <h2 class="section-title"><span class="icon   icon_lock-open "></span> Authentification par cookies</h2>
 <p>Notre site Web utilise le mode ECB pour chiffrer le nom d'utilisateur, et retourne à l'utilisateur le nom d'utilisateur chiffré en tant que cookie.
 Votre mission est de retrouver un cookie de l'utilisateur "admin", afin d'obtenir un accès à la page <code>admin.php</code>.
 Nous verrons dans cette documentation comment ce comportement peut affecter l'authentification et comment elle peut être exploitée.</p>
 </section>
                        <section id="ecb" class="doc-section">
-                       <h2 class="section-title"><span class="icon icon_cogs"></span>Le mode de chiffrement ECB</h2>
+                       <h2 class="section-title"><span class="icon icon_flowchart"></span>Le mode de chiffrement ECB</h2>
 <p><strong>ECB (Electronic codebook)</strong> est un mode de chiffrement dans lequel le message est divisé en plusieurs blocs, d'une longueur de X octets, et chaque bloc est chiffré séparément à l'aide d'une <strong>clé unique</strong>. Si la taille du message n'est pas divisible par X, le message va être complété à l'aide d'un <em>padding</em> (qui consiste à ajouter des octets de remplissage, non porteur d'informations).</p>
 <p style="text-align:center"><img src="assets/images/challenge/ecb.png" /></p>
 <p>Pendant le déchiffrement, l'opération inverse est utilisée. L'utilisation du mode ECB a de multiples implications de sécurité:</p>
@@ -84,7 +84,7 @@ Nous verrons dans cette documentation comment ce comportement peut affecter l'au
 </ul>
 </section>
                        <section id="astuces" class="doc-section">
-                       <h2 class="section-title"><span class="icon icon_cogs"></span> Astuces et Indices</h2>
+                       <h2 class="section-title"><span class="icon   icon_star "></span> Astuces et Indices</h2>
 
 <p>Dans ce challenge, vous n'avez pas besoin d'un mot de passe pour enregistrer un utilisateur. Pour modifier un cookie à la volée, une astuce intéressante consiste, dans un navigateur, à presser la touche <code>F12</code>, puis à sélectionner l'onglet <code>Console</code>. Cela va vous ouvrir un interpréteur de commandes javascript, qui vous permet de remplacer ou d'ajouter de nouveaux cookies en tapant, dans le champ prévu à cet effet : </p>
 <p style="text-align:center"><code>document.cookie="keyofcookie=valueofcookie"</code></p>
@@ -119,7 +119,7 @@ Vous pouvez écrire vous même un script pour réaliser cette exploitation, ou u
 </section>
 
  <section id="solution" class="doc-section">
-                       <h2 class="section-title"><span class="icon icon_cogs"></span> Solution</h2>
+                       <h2 class="section-title"><span class="icon   icon_key "></span> La Solution</h2>
 
 <p>Dans cette partie, nous allons présenter la solution pour bypasser l'authentification par cookies chiffré grâce au mode ECB. </p>
 <p>Tout d'abord, nous pouvons commencer par créer deux comptes aaaaaaaa et aaaaaaaaaaaaaaaa et comparer le cookie envoyé par l'application : </p>
