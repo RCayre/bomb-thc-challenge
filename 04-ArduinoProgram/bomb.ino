@@ -11,7 +11,7 @@
 #define YELLOW  0xFFE0
 #define WHITE   0xFFFF
 
-#define START 3599
+#define START 1800
 
 Adafruit_TFTLCD tft;
 unsigned int colors[8] = {BLACK,BLUE,RED,GREEN,CYAN,MAGENTA,YELLOW,WHITE};
