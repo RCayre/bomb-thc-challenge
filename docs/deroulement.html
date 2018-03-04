@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="fr" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="fr" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="fr"> <!--<![endif]-->  
+<head>
+    <title>Documentation</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/lightbox/dist/ekko-lightbox.min.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+</head> 
+
+<body class="body-orange">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="index.html">
+                            <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                	    <span class="text-bold">Documentation</span>
+                        </a>
+                    </h1>
+                </div><!--//branding-->
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li class="active">Déroulement du projet</li>
+                </ol>
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon    icon_table "></span> Déroulement du projet</h1>
+                    <div class="meta"><i class="fa fa-clock-o"></i> Dernière mise à jour: 28 Février 2018</div>
+                </div><!--//doc-header-->
+                <div class="doc-body">
+                    <div class="doc-content">
+                       <section id="presentationgenerale" class="doc-section">
+                                <h2 class="section-title">Présentation</h2>
+                                <div id="pres"  class="section-block">
+				<p>Dans ce document, nous allons décrire le déroulement du projet, les difficultés rencontrées à chaque étape, et les réponses que nous y avons apporté. Pour cela, nous évoquerons point par point chaque grand composant du projet. </p>
+				<p>L'objectif principal que nous nous sommes fixé lors de la préparation de ce challenge était de proposer un environnement ludique pour découvrir des dimensions variées du monde de la sécurité informatique. Nous avons notamment essayé d'intégrer des éléments relevant de l'inforensic (partie <strong>Android Forensic</strong>), de l'exploitation web (partie <strong>Exploitation Web</strong>) et des éléments de cryptographie et de réseau (partie <strong>Compréhension du Protocole</strong>). Une étape supplémentaire, mêlant cryptographie et exploitation web a également été développée, mais non intégrée en raison des contraintes temporelles liée à l'organisation de la convention.</p>
+<p>Le développement de ce challenge nous a également permis de travailler sur des environnements matériels variés (Arduino, Raspberry Pi, Android), ce qui s'est révélé particulièrement formateur pour nous. Voici une photo de la "bombe" mise en place pour le challenge :</p>
+<p type="text-align:center"><img style="width:100%"  src="assets/images/challenge/photo.jpg" /></p>
+
+
+ 				</div>
+		       </section>
+                       <section id="android" class="doc-section">
+                       <h2 class="section-title"><span class="icon icon_cogs"></span> 1. Android Forensic</h2>
+<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-6">
+				<p>Cette étape a été réalisée par Romain Cayre et documenté par Hong Duong Tran. L'idée principale était de proposer un challenge ludique, qui permettent de comprendre le fonctionnement d'Android du point de vue de la sécurité.</p>
+
+<p>Le choix de travailler sur le motif de déverouillage a été inspiré par un article d'Infosec qui abordait cette problématique. Il nous a semblé qu'il était intéressant de travailler sur un élément concret : une fonctionnalité extrêmement répandue, que de nombreuses personnes ont déjà utilisé.</p>
+<p>Le principe du challenge est d'inverser une empreinte sha1 du motif de déverouillage afin de retrouver le geste à réaliser pour déverouiller le téléphone. Cette empreinte est enregistrée dans le fichier binaire "gesture.key", situé sur une partition privée <strong>/data/system</strong> des téléphones android. </p>
+<p>La plupart des articles évoquant cette attaque utilisent une Rainbow Table, mais nous avons trouvé beaucoup plus formateur de proposer une attaque sans tables précalculées. Cette attaque peut être réalisée par bruteforce relativement facilement, car l'ensemble des antécédents est très petit (on part d'un alphabet de taille 9, pour des mots d'une longueur maximale de 9 symboles, et du fait qu'il s'agit d'un geste on peut ajouter un certain nombre de contraintes qui limitent encore davantage la taille de l'ensemble) : il est donc possible de tester exhaustivement les difféntes combinaisons, en générant le sha1 correspondant et en le comparant à celui extrait de "gesture.key".</p>
+
+</div>
+ <div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><img src="assets/images/challenge/androidlockempty.png" /></p>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12">
+<p>Nous ne voulions pas intégrer un élément provenant d'un dump mémoire récupéré sur Internet, nous avons donc extrait le fichier "gesture.key" d'un téléphone en notre possession via adb. Cette étape a été plus délicate que prévue, car la partition <strong>/data/system</strong> n'est accessible que si le téléphone a été rooté. En effet, Android limite par défaut l'accès à un utilisateur disposant de privilèges restreints, et Google n'a pas fourni de solution générique permettant d'accéder au superutilisateur.</p>
+<p> Après avoir testé de nombreux utilitaires, la combinaison d'un exploit nommé <a href="https://towelroot.com/">towelroot</a> et de l'utilitaire <a href="www.supersu.com/download">SuperSu</a> nous a permis d'obtenir un accès root sur le téléphone, et donc d'accéder à la partition recherchée.</p>
+<p>Initialement, nous comptions demander aux participants de développer eux même le script permettant d'effectuer le bruteforce. Cependant, après discussion avec notre tuteur, nous avons conclu que cette démarche était trop ambitieuse pour le temps d'atelier dont nous disposions, l'écriture du script une fois le principe compris n'étant pas forcément très intéressante. Nous avons donc réservé l'écriture du script au <em>Niveau expert</em>, et développé un script à paramétrer utilisable sans programmation pour les autres utilisateurs du challenge.</p>
+<h5>Structure du dépôt correspondant</h5>
+<ul style="list-style-type:none">
+<li><span class="icon icon_folder"></span> 01-AndroidGestureForensic <em style="color:black">: contient les fichiers nécessaires à l'étape Android Forensic</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> bruteforce.py<em style="color:black">: script assistant (fourni aux utilisateurs) pour la résolution du challenge</em></li>
+	<li><span class="icon icon_document"></span> exploit.py<em style="color:black">: script solution</em></li>
+	<li><span class="icon icon_document"></span> gesture.key<em style="color:black">: fichier contenant le sha1 du motif à retrouver</em></li>
+	<li><span class="icon icon_document"></span> README.md<em style="color:black">: fichier d'aide</em></li>
+</ul>
+</div>
+</div>
+                       <section id="web" class="doc-section">
+                       <h2 class="section-title"><span class="icon icon_cogs"></span> 2. Exploitation Web</h2>
+<p>Pour cette seconde étape, la démarche était de développer une application Web qui soit exploitable facilement, de préférence avec plusieurs techniques différentes, mais également d'implémenter les différents éléments pour la communication entre le téléphone Android, le Raspberry Pi et l'Arduino. Il s'agit donc de l'étape ayant demandé le plus de travail.</p>
+<p>Au niveau de la répartition des rôles, l'application Android a été développée par Hong Duong Tran, l'application web et le programme Arduino par Romain Cayre. La documentation a été écrite par Romain Cayre.</p>
+<p>Il s'agissait, lors de cette étape, de mettre en place le système de communication sans se préoccuper des problématiques liées au chiffrement One Time Pad. Le développement du programme Arduino a donc été réalisé dans un premier temps en recevant directement les messages en clair. </p>
+<p>Plusieurs problématiques se sont posées au niveau du développement du programme Arduino, principalement liées aux limitations techniques de l'Arduino Uno. En effet, pour faire fonctionner l'écran TFT LCD, il était indispensable d'inclure des bibliothèques déjà gourmandes en ressources. Il a donc fallu être constamment attentif aux problématiques d'allocation et de libération de la mémoire. Par exemple, un bug problématique a été rencontré : la carte arduino redémarrait spontanément au bout de quatre minutes environ : ceci était dû à une saturation de la mémoire RAM causé par l'oubli d'un <code>free</code> (de la mémoire allouée sur le tas n'étais jamais libérée), il a donc été nécessaire d'inclure la libération mémoire correspondante. </p>
+<p>Les premières versions des scripts python de communication ont également été écrits dans ce cadre, et ont permis de tester rapidement la communication avec l'Arduino. La principale problématique fut qu'il était indispensable de lancer la lecture sur le port série avant toute écriture, pour ne pas provoquer un reset de l'arduino inopinément. Ces problématiques ont demandé un travail de documentation conséquent pour être résolues, nous n'étions en effet pas habitués à développer pour ce type de matériel.</p>
+<p>Le développement de l'application web s'est déroulé en s'appuyant sur les scripts python déjà écrit. Il était important de pouvoir y intégrer la faille include, nous avons donc choisi de mettre à jour le compteur régulièrement via la liaison série, et de passer par l'intermédiaire d'un fichier "compteur" pour qu'il puisse être inclus dans le script <code>read.php</code>. La première version d'<code>action.php</code> était dédié à faire la liaison entre les données envoyées par l'application Android sans traitement supplémentaire lié au chiffrement : pour faciliter la communication entre ces différentes entités, le développement étant assuré par des personnes différentes, nous nous sommes mis d'accord sur une API minimale à respecter pour l'envoi des messages de contrôle de la bombe.</p>
+<p> Finalement, pour justifier la présence d'une faille include, nous avons mis en place une page "vitrine" affichant le compteur, et envoyant régulièrement des requêtes AJAX pour mettre à jour le compteur par l'intermédiaire de <code>read.php</code>. La problématique de la liaison série qui provoque un reset de l'arduino si une écriture est réalisée avant l'opération de lecture nous a amené à ajouter un script <code>init.php</code>, chargé de démarrer le programme python de lecture périodique sur la liaison série avant toute manipulation du site web. </p>
+<p>Le développement de l'application Android a principalement été compliqué par la nécessité de travailler avec l'Android Studio et un émulateur. Cet environnement de développement est particulièrement lourd, et malgré nos recherches, nous n'avons pas trouvé de solutions alternatives satisfaisantes (nous avons réalisé quelques prototypes avec <code>Kivy</code> pour réaliser l'application en python, mais ces tests se sont révélés décevants). L'application a d'abord été réalisée pour gérer l'envoi des messages, puis a été modifiée pour intégrer l'affichage dynamique du compteur directement sur l'application.</p>
+<p> L'exploitation de la faille include s'est révélée plus compliquée que prévu : nous avions en effet envie de proposer une approche originale, par exploitation des fichiers de journalisation. Il s'agit d'envoyer une première requête pour enregistrer le payload PHP dans les logs, puis d'inclure les logs. Ceci a demandé de rendre ces journaux accessibles en lecture par l'utilisateur apache <em>www-data</em>, ce qui n'était pas le cas par défaut. Cependant, après une discussion avec notre tuteur, nous avons conclus qu'il fallait proposer des solutions d'exploitation alternatives, moins complexes, pour assurer que quel que soit le niveau de l'utilisateur, l'étape soit possible à résoudre : nous avons donc modifié le fichier <b>php.ini</b> afin de le rendre plus permissif, autorisant notamment l'exploitation par inclusion de fichiers distants. Le travail de documentation a été conséquent, car nous avons fait le choix de détailler trois méthodes d'exploitation différentes.</p>
+<h5>Structure du dépôt correspondant</h5>
+<ul style="list-style-type:none;color:grey">
+<li><span class="icon icon_folder"></span> 02-AndroidApp<em style="color:black">: contient les fichiers nécessaires au déploiement de l'application Android</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> activity_main.xml <em style="color:black">: fichier décrivant l'interface graphique</em></li>
+	<li><span class="icon icon_document"></span> AndroidManifest.xml<em style="color:black">: manifeste du projet android</em></li>
+	<li><span class="icon icon_document"></span> app-release-unsigned.apk<em style="color:black">: fichier d'installation de l'application</em></li>
+	<li><span class="icon icon_document"></span> MainActivity.java<em style="color:black">: code source du projet</em></li>
+	<li><span class="icon icon_document"></span> README.md<em style="color:black">: fichier d'aide</em></li>
+	</ul>
+<li><span class="icon icon_folder"></span> 03-WebService<em style="color:black">: contient les fichiers accessibles via le serveur web</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> action.php<em style="color:black">: actionneur PHP déclenché par l'application Android</em></li>
+	<li><span class="icon icon_document"></span> read.php<em style="color:black">: fichier PHP utilisé pour mettre à jour le compteur (faille include)</em></li>
+	<li><span class="icon icon_document"></span> init.php<em style="color:black">: script d'initialisation de la liaison série</em></li>
+	<li><span class="icon icon_document"></span> listen.py<em style="color:black">: script python de lecture de la communication série</em></li>
+	<li><span class="icon icon_document"></span> send.py<em style="color:black">: script python d'écriture sur la communication série</em></li>
+	<li><span class="icon icon_document"></span> index.html<em style="color:black">: page vitrine (affichage du compteur)</em></li>
+	<li><span class="icon icon_document"></span> script.js<em style="color:black">: script AJAX de mise à jour du compteur</em></li>
+	<li><span class="icon icon_document"></span> style.css<em style="color:black">: feuille de styles CSS</em></li>
+	<li><span class="icon icon_document"></span> back.jpg<em style="color:black">: ressource web (image)</em></li>
+	<li><span class="icon icon_document"></span> video.mp4<em style="color:black">: ressource web (vidéo)</em></li>
+	<li><span class="icon icon_document"></span> compteur<em style="color:black">: fichier tampon, contenant la valeur courante du compteur</em></li>
+	<li><span class="icon icon_document"></span> exploit_lfi.py<em style="color:black">: script solution (via inclusion des logs)</em></li>
+	<li><span class="icon icon_document"></span> exploit_rfi.py<em style="color:black">: script solution (via inclusion d'un fichier distant)</em></li>
+	<li><span class="icon icon_document"></span> exploit_lfi_wrapper.py<em style="color:black">: script solution (via inclusion de wrappers)</em></li>
+	<li><span class="icon icon_document"></span> README.md<em style="color:black">:fichier d'aide </em></li>
+	</ul>
+<li><span class="icon icon_folder"></span> 04-ArduinoProgram<em style="color:black">: contient les fichiers nécessaires au programme Arduino</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> bomb.ino<em style="color:black">: code source du programme</em></li>
+	<li><span class="icon icon_document"></span> listen.py<em style="color:black">: script python de lecture de la communication série</em></li>
+	<li><span class="icon icon_document"></span> send.py<em style="color:black">:script python d'écriture sur la communication série</em></li>
+	<li><span class="icon icon_folder"></span> libs <em style="color:black">:librairies de gestion de l'écran LCD</em></li>
+		<ul  style="list-style-type:none;color:lightgrey">
+		<li><span class="icon icon_folder"></span> Adafruit-GFX-Library<em style="color:black">:librairies de gestion graphique</em></li>
+		<li><span class="icon icon_folder"></span> TFTLCD-Library <em style="color:black">:librairies du shield </em></li>
+		</ul>
+	<li><span class="icon icon_document"></span> README.md <em style="color:black">:fichier d'aide </em></li>
+	</ul>
+
+	</ul>
+</ul>
+
+                       </section><!--//doc-section-->
+                      <section id="protocole" class="doc-section">
+                       <h2 class="section-title"><span class="icon icon_cogs"></span> 3. Compréhension du protocole</h2>
+<p>Pour cette dernière étape, il a fallu intégrer le chiffrement One Time Pad et la concaténation d'un secret aux messages clairs aux composants précédents. Le développement côté Raspberry Pi / Arduino a été réalisé par Romain Cayre, les adaptations de l'application Android ont été prises en charge par Hong Duong Tran. La documentation a été écrite par Romain Cayre. </p>
+<p>Cette étape a nécessité plusieurs modifications, et a posé de nombreux problèmes. Tout d'abord, il a fallu trouver une solution pour résoudre le problème de la taille différente des messages, qui rendait compliqué l'implémentation du One Time Pad. Pour pallier à cette problématique, nous avons choisi d'utiliser non pas les messages clairs directement, mais leur empreinte sha1, afin de normaliser la taille.</p>
+<p>Nous nous sommes également retrouvé confronté à une problématique imprévue : le chiffrement one time pad avait pour conséquence que certains octets n'étaient plus des caractères imprimables, après chiffrement. Nous avons donc décidé d'utiliser la fonction PHP bin2hex, afin d'obtenir une chaîne uniquement composée de caractères hexadécimaux. Ce choix a eu l'effet collatéral de rendre le message chiffré trop long pour être transmis par la liaison série à l'arduino. Afin de ne pas compliquer l'implémentation et que cette problématique n'influe pas sur l'expérience utilisateur, nous avons décidé de vérifier les empreintes sha1 des chiffrés (et non le chiffré en lui même) du côté du programme Arduino, et nous avons intégré la transformation du sha1 dans le programme python <code>send.py</code> afin que cela soit transparent pour l'utilisateur.</p>
+<p>Initialement, nous avions implémenté le chiffrement en PHP : cependant, après discussion avec notre tuteur, il nous a semblé plus intéressant que cette problématique soit gérée par un programme compilé, pour que la résolution de cette étape ne se limite pas à une simple lecture du code source. Le programme <code>onetimepad</code> a donc été développé, et une obfuscation minimale a été réalisée pour que la clé de chiffrement ne puisse pas être récupérée trop facilement (avec le programme <code>strings</code> par exemple). Des problématiques liées aux différences entre l'architecture de test (x86) et l'architecture du Raspberry Pi (ARM) ont également dû être résolues.</p>
+<p>Il nous a également semblé intéressant d'intégrer la nécessité de procéder à une écoute du trafic réseau pour résoudre le challenge : la vérification du message en clair a donc été modifiée pour être réalisée à partir des empreintes sha1, et un secret a été concaténé au message clair (la chaîne "ZESECRET") afin qu'il soit indispensable de sniffer pour forger le message "STOP". Ceci a évidemment impliqué des modifications sur l'application Android et sur l'application Web. Pour permettre l'utilisation de <code>tcpdump</code> sans nécessiter une élévation de privilèges, nous avons modifié les permissions de l'exécutable.</p>
+
+<h5>Structure du dépôt correspondant</h5>
+
+<ul style="list-style-type:none;color:grey">
+<li><span class="icon icon_folder"></span> 02-AndroidApp<em style="color:black">: contient les fichiers nécessaires au déploiement de l'application Android</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> activity_main.xml <em style="color:black">: fichier décrivant l'interface graphique</em></li>
+	<li><span class="icon icon_document"></span> AndroidManifest.xml<em style="color:black">: manifeste du projet android</em></li>
+	<li><span class="icon icon_document"></span> app-release-unsigned.apk<em style="color:black">: fichier d'installation de l'application</em></li>
+	<li><span class="icon icon_document"></span> MainActivity.java<em style="color:black">: code source du projet</em></li>
+	<li><span class="icon icon_document"></span> README.md<em style="color:black">: fichier d'aide</em></li>
+	</ul>
+<li><span class="icon icon_folder"></span> 03-WebService<em style="color:black">: contient les fichiers accessibles via le serveur web</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> action.php<em style="color:black">: actionneur PHP déclenché par l'application Android</em></li>
+	<li><span class="icon icon_document"></span> read.php<em style="color:black">: fichier PHP utilisé pour mettre à jour le compteur (faille include)</em></li>
+	<li><span class="icon icon_document"></span> init.php<em style="color:black">: script d'initialisation de la liaison série</em></li>
+	<li><span class="icon icon_document"></span> listen.py<em style="color:black">: script python de lecture de la communication série</em></li>
+	<li><span class="icon icon_document"></span> send.py<em style="color:black">: script python d'écriture sur la communication série</em></li>
+	<li><span class="icon icon_document"></span> index.html<em style="color:black">: page vitrine (affichage du compteur)</em></li>
+	<li><span class="icon icon_document"></span> script.js<em style="color:black">: script AJAX de mise à jour du compteur</em></li>
+	<li><span class="icon icon_document"></span> style.css<em style="color:black">: feuille de styles CSS</em></li>
+	<li><span class="icon icon_document"></span> onetimepad.c<em style="color:black">: code source du programme de chiffrement onetimepad</em></li>
+	<li><span class="icon icon_document"></span> onetimepad<em style="color:black">: binaire ARM de chiffrement onetimepad</em></li>
+	<li><span class="icon icon_document"></span> back.jpg<em style="color:black">: ressource web (image)</em></li>
+	<li><span class="icon icon_document"></span> video.mp4<em style="color:black">: ressource web (vidéo)</em></li>
+	<li><span class="icon icon_document"></span> compteur<em style="color:black">: fichier tampon, contenant la valeur courante du compteur</em></li>
+	<li><span class="icon icon_document"></span> exploit_lfi.py<em style="color:black">: script solution (via inclusion des logs)</em></li>
+	<li><span class="icon icon_document"></span> exploit_rfi.py<em style="color:black">: script solution (via inclusion d'un fichier distant)</em></li>
+	<li><span class="icon icon_document"></span> exploit_lfi_wrapper.py<em style="color:black">: script solution (via inclusion de wrappers)</em></li>
+	<li><span class="icon icon_document"></span> xorcypher.php<em style="color:black">: fichier de simulation du one time pad (PHP)</em></li>
+	<li><span class="icon icon_document"></span> xorcypher.py<em style="color:black">: fichier de simulation du one time pad (Python)</em></li>
+	<li><span class="icon icon_document"></span> README.md<em style="color:black">:fichier d'aide </em></li>
+	</ul>
+<li><span class="icon icon_folder"></span> 04-ArduinoProgram<em style="color:black">: contient les fichiers nécessaires au programme Arduino</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> bomb.ino<em style="color:black">: code source du programme</em></li>
+	<li><span class="icon icon_document"></span> listen.py<em style="color:black">: script python de lecture de la communication série</em></li>
+	<li><span class="icon icon_document"></span> send.py<em style="color:black">:script python d'écriture sur la communication série</em></li>
+	<li><span class="icon icon_folder"></span> libs <em style="color:black">:librairies de gestion de l'écran LCD</em></li>
+		<ul  style="list-style-type:none;color:lightgrey">
+		<li><span class="icon icon_folder"></span> Adafruit-GFX-Library<em style="color:black">:librairies de gestion graphique</em></li>
+		<li><span class="icon icon_folder"></span> TFTLCD-Library <em style="color:black">:librairies du shield </em></li>
+		</ul>
+	<li><span class="icon icon_document"></span> README.md <em style="color:black">:fichier d'aide </em></li>
+	</ul>
+
+	</ul>
+
+</ul>
+                       </section><!--//doc-section-->
+                        <section id="cookies" class="doc-section">
+                       <h2 class="section-title"><span class="icon icon_cogs"></span> 4. Cookies chiffrés en AES - ECB</h2>
+<p>Une étape supplémentaire a été implémentée : celle ci a entièrement été développée par Hong Duong Tran, ainsi que sa documentation. Elle consistait à mettre en place une authentification par cookies chiffrés via un chiffrement de type ECB, aurait été insérée avant l'exploitation Web et aurait dû être résolue en profitant de la caractéristique d'un chiffrement ECB de chiffrer de façon identique deux blocs clairs similaires. Cependant, suite à un entretien avec notre tuteur, nous avons décidé de ne pas l'intégrer en raison de la complexité du challenge déjà existant, du temps limité pour réaliser le challenge dans son intégralité et car certains éléments (cryptographie / web) étaient redondants avec des étapes déjà intégrées.</p>
+<p>Le code de cette étape est disponible dans son intégralité dans le dossier <code>03-WebService-Bis</code>. Il a nécessité un investissement temporel important de la part de Hong Duong Tran.</p>
+</section>                    
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar">
+                        <nav id="doc-nav">
+                            <ul id="doc-menu" class="nav doc-menu hidden-xs" data-spy="affix">
+                                <li><a class="scrollto" href="#presentationgenerale">Présentation</a></li>
+                                <li><a class="scrollto" href="#android">Android Forensic</a></li>
+                                <li><a class="scrollto" href="#web">Exploitation Web</a></li>
+                                <li><a class="scrollto" href="#protocole">Compréhension du Protocole</a></li>				   
+                                <li><a class="scrollto" href="#cookies">Cookies chiffrés en AES - ECB</a></li>
+                                    
+                            </ul><!--//doc-menu-->
+                        </nav>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Développé avec <i class="fa fa-heart"></i> par Romain Cayre et Huon Duong Tran</small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+    <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>  
+    <script type="text/javascript" src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>                                                                 
+    <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+
