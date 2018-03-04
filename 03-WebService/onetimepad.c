@@ -7,6 +7,15 @@ Elles ne fonctionnent pas pour une architecture x86 (cela a motivé les changeme
 */
 static char hexconvtab[] = "0123456789abcdef";
 
+/*
+*  Fonction : getkey
+*  ----------------
+*  Utiliser en fonction main pour construire en dur le clé de chiffrement.
+*  Paramètre :
+*  n : la position du clé
+*  
+*  Retour : la valeur pour cette position
+*/
 char getkey(int n) {
 	if (n == 24 || n==38) {
 		return hexconvtab[0];
@@ -60,6 +69,20 @@ char getkey(int n) {
 
 		
 }
+
+/*
+*  Fonction : xor
+*  -----------------
+*  Fonction de chiffrement en xorant le clair avec le clé,
+*  Le clé a été crée en dur grâce à fonction getkey()
+*
+*  Paramètres :
+*  clair : le message à chiffré
+*  cle : le clé utilisé pour chiffrer le message
+*
+*  Retour :
+*  Le chiffré du message.
+*/
 char *xor(char *clair,char *cle) {
 	char *tmp = malloc(10*sizeof(cle));
 	for (int i=0;i<10*sizeof(cle);i++) {
@@ -75,6 +98,7 @@ int main(int argc, char** argv) {
 	}
 	
 	if (argc == 2) {
+		// Le haché du commnd STOP n'est pas accepté et donc ne donne pas le chiffré du STOP
 		if (strcmp(argv[1],"22dd78f1b8dbb2a1b716ed0858880e0e3da8d07c")==0) {
 			printf("Forbidden input, sorry  !\n");
 			exit(1);
