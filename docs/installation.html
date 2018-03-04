@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="fr" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="fr" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="fr"> <!--<![endif]-->  
+<head>
+    <title>Documentation</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/lightbox/dist/ekko-lightbox.min.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+</head> 
+
+<body class="body-purple">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="index.html">
+                            <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                	    <span class="text-bold">Documentation</span>
+                        </a>
+                    </h1>
+                </div><!--//branding-->
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li class="active">Installation</li>
+                </ol>
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon  icon_globe-2"></span> Installation</h1>
+                    <div class="meta"><i class="fa fa-clock-o"></i> Dernière mise à jour: 28 Février 2018</div>
+                </div><!--//doc-header-->
+                <div class="doc-body">
+                    <div class="doc-content">
+                       <section id="presentation" class="doc-section">
+                                <h2 class="section-title">Présentation</h2>
+                                <div id="presentationgenerale"  class="section-block">
+				<p>Dans ce document, nous allons nous focaliser sur l'installation et la mise en place des différents composants de ce challenge. Nous avons tenté, lors de ce projet, de développer des dimensions variées de la sécurité informatique, tout en conservant une forme ludique. Les différentes étapes du challenge se déroulent donc dans des environnements matériels et logiciels que nous avons voulus variés et intéressants, tout en restant accessibles en terme de coût financier et de temps de développement.</p>
+				<p>L'objectif principal du challenge est de désamorcer une "bombe", incarnée par une carte arduino sur laquelle a été connecté un écran TFT LCD. Pour cela, les participants devront :</p>
+<ol>
+<li>Inverser une empreinte sha1 extraite d'un dump mémoire d'un téléphone Android, pour retrouver le motif de déverouillage du téléphone </li>
+<li>Exploiter une vulnérabilité web (faille dite <em>include</em>) pour obtenir un shell interactif sur le Raspberry Pi </li>
+<li>Comprendre le protocole de communication entre l'application Android, le Raspberry Pi et la carte Arduino, et forger un message pour stopper la bombe </li>
+
+
+</ol>
+ 				</div>
+		       </section>
+                       <section id="expert" class="doc-section">
+                                <h2 class="section-title"><span class="icon icon_cogs"></span> Environnement Matériel</h2>
+				<p>Nous avons utilisé, pour mener à bien ce projet, un certain nombre de composants matériels, listés ci-dessous.</p><p><strong>Le jour de la présentation du Challenge, nous apporterons le matériel nécessaire à la mise en place de l'atelier, afin d'éviter un achat potentiel de matériel à l'organisation.</strong></p>
+<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><img height="300px" src="assets/images/challenge/rpi.jpg" /></p>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><h4>Raspberry Pi Modèle B (512Mb de RAM)</h4><p>Il s'agit d'un mini ordinateur idéal pour le développement d'outils et de logiciels destinés au monde de l'embarqué. Dans le projet, il gère le point d'accès Wifi, le serveur Web, la communication entre le téléphone et la carte Arduino Uno.</p><p>Il dispose de ports GPIO (non utilisés), de deux ports USB, d'une sortie jack femelle, d'une sortie VGA femelle, d'un port ethernet femelle, d'un port HDMI femelle,un processeur ARM ainsi qu'un lecteur de cartes SD. </p>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><h4>Arduino UNO (officielle)</h4><p>Il s'agit d'une carte éléctronique programmable, particulièrement utile lors d'opérations de prototypage. Elle est composé d'un certain nombre de "Ports (ou pin) d'entrée" et de "Ports (pout) de sortie". Certains ports sont analogiques, d'autres seulement numériques.</p><p> Cette carte est programmable depuis un ordinateur, soit directement en assembleur, soit en utilisant un langage dédié, dont la syntaxe et la structure sont presque entièrements similaires au langage C (voire au langage C++).Dans notre cas, elle communique via un port série, connecté en USB au Raspberry Pi.</p>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><img height="300px" src="assets/images/challenge/arduinouno.jpg" /></p>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><img height="300px" src="assets/images/challenge/tft.jpg" /></p>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><h4>2.8" TFT Touch Shield (AdaFruit)</h4><p>Il s'agit d'un "shield", soit un composant déjà monté sur un circuit électronique, qu'il suffit de connecter à la carte arduino Uno pour disposer d'un affichage couleur. L'écran est tactile (technologie résistive), mais nous nous sommes contenté d'exploiter la fonctionnalité d'affichage pour la mise en place du compteur décroissant. La résolution est de 240x320 avec des couleurs 18-bits ce qui correspond à 262 000 couleurs. Ce composant comporte ses propres librairies (notamment d'affichage et de gestion du tactile). </p>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><h4>Sony XPERIA C5303</h4><p>Il s'agit d'un smartphone android classique, milieu de gamme, fonctionnant sous Android 7.0 Nougat.Il dispose notamment d'une carte Wifi. Il comprend le fichier gesture.key, que nous avons utilisé pour retrouver le motif de déverouillage du téléphone, ainsi qu'une application Android, distribuée sous la forme d'un APK, que nous avons installé dans le téléphone.</p>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><img height="300px" src="assets/images/challenge/sonyxperia.jpg" /></p>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><img height="300px" src="assets/images/challenge/dongle.jpg" /></p>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><h4>Dongle WiFi NetGear</h4><p>Il s'agit d'un dongle Wifi permettant de créer un réseau local sans fil rapidement. Il supporte correctement les normes 802.11 b/g/n, avec un débit maximal théorique de 300 Mbps.</p>
+</div>
+</div>
+<div class="row">
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><h4>Carte SD 16Gb</h4><p>Nous avons utilisée une carte SD standard 16Gb pour stocker le système d'exploitation installé sur le Raspberry Pi et l'environnement logiciel correspondant. Cette carte est insérée sur le slot de carte SD du Raspberry Pi.</p>
+</div>
+<div class="col-md-6 col-sm-6 col-xs-6">
+<p type="text-align:center"><img height="300px" src="assets/images/challenge/cartesd.jpg" /></p>
+</div>
+</div>
+<p>Finalement, nous avons également utilisé, pour interconnecter ces différents composants :</p>
+<div><p style="text-align:center"><img height="200px" src="assets/images/challenge/microusb.jpg" /></p>
+<div style="text-align:center"><h4> Cable microUSB mâle vers USB mâle</h4><p>Pour alimenter la Raspberry Pi</p></div></div>
+<div><p style="text-align:center"><img height="200px" src="assets/images/challenge/serie.jpg" /></p>
+<div style="text-align:center"><h4> Cable USB série mâle vers USB mâle</h4><p>Pour connecter la Raspberry Pi et l'Arduino UNO</p></div></div>
+<p>La configuration finale est la suivante, une fois l'environnement logiciel déployé sur chaque composant matériel : </p>
+<ul>
+<li><em>La carte Arduino </em>est connectée via la liaison USB/série au Raspberry Pi (port USB #1)</li>
+<li><em>Le dongle Wifi </em>est connecté au Raspberry Pi (port USB #2)</li>
+<li><em>La carte SD </em>est insérée dans le slot prévu à cet effet sur le Raspberry Pi</li>
+<li><em>Le Raspberry Pi </em>est alimenté via le port micro USB au secteur</li>
+<li><em>Le téléphone Android </em>est allumé, connecté au réseau sans fil de la Raspberry Pi, et verouillé</li>
+</ul>
+<p><strong>Pour mener à bien le challenge, il est nécessaire de disposer d'au moins un ordinateur disposant d'une connection Wifi, de préférence équipé d'une distribution GNU/Linux standard. Nous pouvons apporter un ordinateur portable correspondant à ces critères.</strong></p>
+                       </section><!--//doc-section-->
+                       <section id="debutant" class="doc-section">
+                                <h2 class="section-title"><span class="icon icon_folder"></span> Environnement logiciel</h2>
+                                <div class="section-block">
+				<p> Dans cette partie, nous allons détailler l'installation des différents composants logiciels nécessaires au fonctionnement du Challenge. Dans la mesure du possible, nous avons tenté d'utiliser des solutions Open Source efficaces et compatibles avec notre matériel.</p>
+<h3>Structure du dépôt</h3>
+<p> Le dépôt que nous proposons est composé des éléments suivants : </p>
+<ul style="list-style-type:none;color:grey">
+<li><span class="icon icon_folder"></span> 01-AndroidGestureForensic <em style="color:black">: contient les fichiers nécessaires à l'étape Android Forensic</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> bruteforce.py<em style="color:black">: script assistant (fourni aux utilisateurs) pour la résolution du challenge</em></li>
+	<li><span class="icon icon_document"></span> exploit.py<em style="color:black">: script solution</em></li>
+	<li><span class="icon icon_document"></span> gesture.key<em style="color:black">: fichier contenant le sha1 du motif à retrouver</em></li>
+	<li><span class="icon icon_document"></span> README.md<em style="color:black">: fichier d'aide</em></li>
+	</ul>
+<li><span class="icon icon_folder"></span> 02-AndroidApp<em style="color:black">: contient les fichiers nécessaires au déploiement de l'application Android</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> activity_main.xml <em style="color:black">: fichier décrivant l'interface graphique</em></li>
+	<li><span class="icon icon_document"></span> AndroidManifest.xml<em style="color:black">: manifeste du projet android</em></li>
+	<li><span class="icon icon_document"></span> app-release-unsigned.apk<em style="color:black">: fichier d'installation de l'application</em></li>
+	<li><span class="icon icon_document"></span> MainActivity.java<em style="color:black">: code source du projet</em></li>
+	<li><span class="icon icon_document"></span> README.md<em style="color:black">: fichier d'aide</em></li>
+	</ul>
+<li><span class="icon icon_folder"></span> 03-WebService<em style="color:black">: contient les fichiers accessibles via le serveur web</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> action.php<em style="color:black">: actionneur PHP déclenché par l'application Android</em></li>
+	<li><span class="icon icon_document"></span> read.php<em style="color:black">: fichier PHP utilisé pour mettre à jour le compteur (faille include)</em></li>
+	<li><span class="icon icon_document"></span> init.php<em style="color:black">: script d'initialisation de la liaison série</em></li>
+	<li><span class="icon icon_document"></span> listen.py<em style="color:black">: script python de lecture de la communication série</em></li>
+	<li><span class="icon icon_document"></span> send.py<em style="color:black">: script python d'écriture sur la communication série</em></li>
+	<li><span class="icon icon_document"></span> index.html<em style="color:black">: page vitrine (affichage du compteur)</em></li>
+	<li><span class="icon icon_document"></span> script.js<em style="color:black">: script AJAX de mise à jour du compteur</em></li>
+	<li><span class="icon icon_document"></span> style.css<em style="color:black">: feuille de styles CSS</em></li>
+	<li><span class="icon icon_document"></span> onetimepad.c<em style="color:black">: code source du programme de chiffrement onetimepad</em></li>
+	<li><span class="icon icon_document"></span> onetimepad<em style="color:black">: binaire ARM de chiffrement onetimepad</em></li>
+	<li><span class="icon icon_document"></span> back.jpg<em style="color:black">: ressource web (image)</em></li>
+	<li><span class="icon icon_document"></span> video.mp4<em style="color:black">: ressource web (vidéo)</em></li>
+	<li><span class="icon icon_document"></span> compteur<em style="color:black">: fichier tampon, contenant la valeur courante du compteur</em></li>
+	<li><span class="icon icon_document"></span> exploit_lfi.py<em style="color:black">: script solution (via inclusion des logs)</em></li>
+	<li><span class="icon icon_document"></span> exploit_rfi.py<em style="color:black">: script solution (via inclusion d'un fichier distant)</em></li>
+	<li><span class="icon icon_document"></span> exploit_lfi_wrapper.py<em style="color:black">: script solution (via inclusion de wrappers)</em></li>
+	<li><span class="icon icon_document"></span> xorcypher.php<em style="color:black">: fichier de simulation du one time pad (PHP)</em></li>
+	<li><span class="icon icon_document"></span> xorcypher.py<em style="color:black">: fichier de simulation du one time pad (Python)</em></li>
+	<li><span class="icon icon_document"></span> README.md<em style="color:black">:fichier d'aide </em></li>
+	</ul>
+<li><span class="icon icon_folder"></span> 03-WebService-Bis<em style="color:black">: étape supplémentaire du challenge (non intégrée)</em></li>
+<li><span class="icon icon_folder"></span> 04-ArduinoProgram<em style="color:black">: contient les fichiers nécessaires au programme Arduino</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> bomb.ino<em style="color:black">: code source du programme</em></li>
+	<li><span class="icon icon_document"></span> listen.py<em style="color:black">: script python de lecture de la communication série</em></li>
+	<li><span class="icon icon_document"></span> send.py<em style="color:black">:script python d'écriture sur la communication série</em></li>
+	<li><span class="icon icon_folder"></span> libs <em style="color:black">:librairies de gestion de l'écran LCD</em></li>
+		<ul  style="list-style-type:none;color:lightgrey">
+		<li><span class="icon icon_folder"></span> Adafruit-GFX-Library<em style="color:black">:librairies de gestion graphique</em></li>
+		<li><span class="icon icon_folder"></span> TFTLCD-Library <em style="color:black">:librairies du shield </em></li>
+		</ul>
+	<li><span class="icon icon_document"></span> README.md <em style="color:black">:fichier d'aide </em></li>
+	</ul>
+<li><span class="icon icon_folder"></span> 05-DeploymentScripts<em style="color:black">: scripts de déploiement sur le Raspberry Pi</em></li>
+	<ul style="list-style-type:none;color:darkgrey">
+	<li><span class="icon icon_document"></span> dhcpcd.conf <em style="color:black">: fichier de configuration</em></li>
+	<li><span class="icon icon_document"></span> dnsmasq.conf<em style="color:black">: fichier de configuration</em></li>
+	<li><span class="icon icon_document"></span> hostapd<em style="color:black">: fichier de configuration</em></li>
+	<li><span class="icon icon_document"></span> hostapd.conf<em style="color:black">: fichier de configuration</em></li>
+	<li><span class="icon icon_document"></span> php.ini<em style="color:black">: fichier de configuration</em></li>
+	<li><span class="icon icon_document"></span> rc.local<em style="color:black">: fichier de configuration</em></li>
+	<li><span class="icon icon_document"></span> sysctl.conf<em style="color:black">: fichier de configuration</em></li>
+	<li><span class="icon icon_document"></span> softwaresInstallation.sh<em style="color:black">: script d'installation</em></li>
+	</ul>
+<li><span class="icon icon_folder"></span> docs <em style="color:black">: contient la documentation</em></li>
+</ul>
+
+<h3>Installation de l'environnement logiciel du Raspberry Pi</h3>
+<p>Dans cette partie, nous allons détailler l'installation des composants logiciels nécessaires sur le Raspberry Pi. Nous avons réalisé un script de déploiement automatique (disponible dans le dossier <strong>05-DeploymentScripts</strong>) pour automatiser l'installation des logiciels (une fois le système d'exploitation installé), mais nous détaillerons ici l'installation et le rôle des différents composants.</p>
+<h4>Téléchargement et installation du système d'exploitation</h4>
+<p>Pour l'installation de Raspbian sur la carte SD, nous procéderons depuis une distribution GNU/Linux standard (dans notre cas, une Fedora 27) par commodité. </p><p>Nous avons choisi d'utiliser une distribution Linux conçue sur mesure pour le Raspberry Pi, et dérivée de Debian : il s'agit de la distribution Raspbian. Celle ci est disponible en deux versions : avec environnement de bureau (<strong>Raspbian Stretch with desktop</strong>) ou sans (<strong>Raspbian Stretch Lite</strong>). </p><p>Le Raspberry Pi étant principalement destiné à servir de serveur, il n'était pas nécessaire d'installer un environnement de bureau. Nous avons donc préféré utiliser la version Raspbian Stretch Lite, que vous pouvez télécharger depuis le site officiel, ou directement en cliquant sur le lien ci dessous :</p>
+<p style="text-align:center"><a href="https://downloads.raspberrypi.org/raspbian_lite_latest" class="btn btn-purple">Télécharger Raspbian Stretch Lite<br /><em>SHA-256: e942b70072f2e83c446b9de6f202eb8f9692c06e7d92c343361340cc016e0c9f</em></a></p>
+<p> Une fois téléchargé, on peut dézipper le fichier :</p>
+<pre>
+<code>
+$ cd ~/Téléchargements
+$ unzip 2017-11-29-raspbian-stretch-lite.zip 
+Archive: 2017-11-29-raspbian-stretch-lite.zip
+ inflating: 2017-11-29-raspbian-stretch-lite.img
+</code>
+</pre>
+<p>Il faut ensuite identifier, après insertion de la carte SD, son point de montage :</p>
+<pre>
+<code>
+$ lsblk
+NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
+sda 8:0 0 931,5G 0 disk 
+├─sda1 8:1 0 250M 0 part /boot/efi
+├─sda2 8:2 0 250M 0 part /boot
+└─sda3 8:3 0 550G 0 part 
+ 
+sdc 8:32 1 58,6G 0 disk 
+├─sdc1 8:33 1 41M 0 part 
+└─sdc2 8:34 1 1,2G 0 part 
+sr0 11:0 1 1024M 0 rom
+</code>
+</pre>
+<p>Dans notre cas, il s'agit de <em>sdc</em>.
+<p>Finalement, nous utilisons la commande <code>dd</code> pour installer l'image sur la carte SD.</p>
+<pre><code>$ sudo dd if=~/Téléchargements/2017-11-29-raspbian-stretch-lite.img of=/dev/sdc
+3629056+0 enregistrements lus
+3629056+0 enregistrements écrits
+1858076672 bytes (1,9 GB, 1,7 GiB) copied, 471,175 s, 3,9 MB/s/s</pre></code>
+<p>Pour pouvoir mettre en place l'accès SSH, désactivé par défaut pour des raisons de sécurité, il faut prendre soin d'ajouter un fichier à la racine de la première partition créée. Nous montons donc la partition dans un dossier arbitraire, créons le fichier "ssh" à la racine, et démontons la partition :</p>
+<pre><code>
+$ sudo mkdir /media/pi
+$ sudo mount /dev/sdc1 /media/pi/
+$ cd /media/pi
+$ sudo touch ssh
+$ cd ~
+$ sudo umount /media/pi
+$ sudo rmdir /media/pi
+</code></pre>
+<p>Raspbian est désormais installé. Pour la suite de la configuration, nous avons inséré la carte SD dans le Raspberry Pi, connecté ce dernier à Internet en le connectant via Ethernet sur notre routeur, et nous nous sommes connecté en SSH depuis notre ordinateur :</p>
+<pre><code>
+$ ssh pi@192.168.1.42
+>>Password : raspberry<<
+</code></pre>
+<h4>Téléchargement du dépôt</h4>
+<p> Il est ensuite nécessaire de récupérer notre dépôt github sur le Raspberry Pi. Pour cela, nous entrons la commande :</p>
+<code> $ git clone https://github.com/thecheshirecat15/bomb-thc-challenge</code>
+<p>A partir de là, deux solutions sont possibles :</p>
+<h4>Installation automatique (script d'installation)</h4>
+<p>Nous avons développé un script destiné à installer automatiquement l'environnement logiciel nécessaire, il est situé dans le dossier <em>05-DeploymentScripts</em>. Pour lancer l'installation automatiquement, tapez les commandes suivantes :</p>
+<pre><code>
+$ cd bomb-thc-challenge
+$ cd 05-DeploymentScripts
+$ chmod +x softwaresInstallation.sh
+$ sudo ./softwaresInstallation.sh
+</code></pre>
+<h4>Installation manuelle</h4>
+<p>Il est également possible de mettre en place manuellement l'environnement logiciel. Pour cela, voici la procédure :</p>
+<h5>Mise à jour de Raspbian et de la liste des dépôts</h5>
+<p> Pour mettre à jour l'OS et les dépôts associés, tapez les commandes suivantes :</p>
+<pre><code>
+$ sudo apt-get update
+$ sudo apt-get upgrade</code></pre>
+<h5>Installation et configuration du point d'accès sans fil</h5>
+<p> Pour mettre en place le point d'accès sans fil nécessaire pour que le téléphone Android puisse communiquer avec le Raspberry Pi, il faut entrer les commandes suivantes afin d'installer un serveur dns (dnsmasq) et gérer le point d'accès (hostapd) :</p>
+<pre><code>$ sudo apt-get install dnsmasq hostapd
+$ sudo systemctl stop dnsmasq
+$ sudo systemctl stop hostapd
+</code></pre>
+<p>On copie ensuite les fichiers de configuration nécessaires à la configuration du serveur DHCP (dhcpd) :</p>
+<pre><code>
+$ sudo mv /etc/dhcpd.conf /etc/dhcpcd.conf.orig
+$ sudo cp bomb-thc-challenge/05-DeploymentScripts/dhcpcd.conf /etc/dhcpcd.conf
+$ sudo service dhcpcd restart
+</code></pre>
+<p>On procède de même pour la configuration du serveur DNS :</p>
+<pre><code>
+$ sudo mv /etc/dnsmasq.conf /etc/dnsmasq.conf.orig
+$ sudo cp bomb-thc-challenge/05-DeploymentScripts/dnsmasq.conf /etc/dnsmasq.conf
+</code></pre>
+<p>Puis pour la configuration du point d'accès :</p>
+<pre><code>
+$ sudo mv /etc/hostapd/hostapd.conf /etc/hostapd/hostapd.conf.orig
+$ sudo mv /etc/default/hostapd /etc/default/hostapd.orig
+$ sudo cp bomb-thc-challenge/05-DeploymentScripts/hostapd.conf /etc/hostapd/hostapd.conf
+$ sudo cp bomb-thc-challenge/05-DeploymentScripts/hostapd /etc/default/hostapd
+</code></pre>
+<p>On peut ensuite redémarrer les services :</p>
+<pre><code>
+$ sudo systemctl start hostapd
+$ sudo systemctl start dnsmasq
+</code></pre>
+<p>Et mettre en place le routage :</p>
+<pre><code>
+$ sudo cp bomb-thc-challenge/05-DeploymentScripts/sysctl.conf /etc/sysctl.conf
+$ sudo iptables -t nat -A  POSTROUTING -o eth0 -j MASQUERADE
+$ sudo sh -c "iptables-save > /etc/iptables.ipv4.nat"
+$ sudo cp ./rc.local /etc/rc.local
+</code></pre>
+<h5>Installation et configuration du serveur Web (Apache)</h5>
+<p> Notre projet nécessitant l'installation d'un serveur web, nous avons choisi d'installer Apache2, qui est complet et bien documenté, ainsi que le module PHP. Pour l'installer, nous avons entré les commandes suivantes :</p>
+<pre><code>
+$ sudo apt install apache2 php php-mbstring
+</code></pre>
+<p>Pour rendre accessible en écriture le dossier contenant le site web, nous avons entré les commandes suivantes :</p>
+<pre><code>
+$ sudo chown -R pi:www-data /var/www/html/ 
+$ sudo chmod -R 770 /var/www/html/
+</code></pre>
+<p>Pour rendre un certain nombre d'exploitations web impossible par défaut accessibles aux utilisateurs du challenge, nous avons remplacé php.ini par une version plus permissive (notamment comportant la directive <strong>allow_url_include</strong> à <em>On</em>) et rendu les logs accessibles en lecture à l'utilisateur www-data :</p>
+<pre><code>
+$ sudo cp bomb-thc-challenge/05-DeploymentScripts/php.ini /etc/php/7.0/apache2/php.ini
+$ sudo chmod 777 /var/log/apache2/access.log
+</code></pre>
+<p>Nous avons ensuite déployé le contenu du site web, et supprimé les fichiers solutions ou apportant trop d'informations :</p>
+<pre><code>
+$ cp bomb-thc-challenge/03-WebService/* /var/www/html/*
+$ rm /var/www/html/exploit*
+$ rm /var/www/html/send2.py
+$ rm /var/www/html/xorcypher*
+$ gcc /var/www/html/onetimepad.c -o /var/www/html/onetimepad
+$ rm /var/www/html/onetimepad.c
+</code></pre>
+<p>Finalement, nous avons fait en sorte que le serveur Apache démarre au démarrage du Raspberry Pi :</p>
+<pre><code>
+$ sudo update-rc.d apache2 defaults
+</code></pre>
+<h5>Configuration des permissions</h5>
+<p> Notre projet nécessite l'utilisation de librairies python permettant la communication via la liaison série (à destination de l'Arduino), nous avons donc installé l'environnement et la librairie nécessaire au bon fonctionnement de nos scripts : </p>
+<pre><code>
+$ sudo apt install python pyserial
+</code></pre>
+<p> Ces scripts étant appelés depuis l'utilisateur www-data (directement par le serveur Apache), il faut ajouter cet utilisateur au groupe "dialout" afin qu'il ait le droit d'utiliser ce type de code :</p>
+<pre><code>
+$ sudo usermod -a -G dialout www-data
+</code></pre>
+<p> Pour terminer, il est nécessaire pour la dernière étape de Compréhension du protocole, d'utiliser tcpdump. Nous l'avons donc installé, et avons créé un groupe pour mettre en place les permissions nécessaires à  son utilisation par l'utilisateur www-data :</p>
+<pre><code>
+$ sudo apt install tcpdump
+$ sudo groupadd pcap
+$ sudo usermod -a -G pcap www-data
+$ sudo chgrp pcap /usr/sbin/tcpdump
+$ sudo chmod 750 /usr/sbin/tcpdump
+$ sudo setcap cap_net_raw,cap_net_admin=eip /usr/sbin/tcpdump</code></pre>
+<h5>Redémarrage du Raspberry Pi</h5>
+<p>Pour que toutes nos modifications soient prises en compte, il est nécessaire de redémarrer le Raspberry Pi :</p>
+<pre><code>
+$ sudo reboot
+</code></pre>
+<p>La configuration du Raspberry Pi est à présent terminée.</p>
+<h3>Installation du programme Arduino</h3>
+<p>Dans cette partie, nous allons détailler la compilation et l'envoi du programme sur la carte Arduino Uno. La spécificité de cette étape est de nécessiter l'environnement de développement arduino, et l'installation de librairies tierces fournies par Adafruit pour faire fonctionner l'écran LCD.</p>
+<p>Après installation de l'environnement arduino (<code>sudo apt install arduino</code> sur Debian/Ubuntu, <code>sudo dnf install arduino</code> sur Fedora), nous ouvrons notre fichier bomb.ino :</p>
+<h6>Image Ici</h6>
+<p>Il est ensuite nécessaire d'ajouter nos librairies, disponibles dans les dossiers <strong>Adafruit-GFX-Library</strong> et <strong>TFTLCD-Library</strong> : </p>
+<h6>Image Ici</h6>
+<p>Finalement, on clique sur le bouton "Compilation et téleversement" pour transmettre le programme à la carte arduino, après avoir éventuellement sélectionné "Arduino Uno" dans "type de cartes". Une fois le programme en ligne, on peut connecter l'arduino au Raspberry Pi grâce au câble USB/série.</p>
+
+<h3>Installation et paramétrage du téléphone Android</h3>
+<p>La première étape pour l'installation du téléphone Android, est 
+
+				- structure du dépôt
+				- lien de dl 
+				- installation manuelle
+				- installation automatique
+
+            </div><!--//section-block-->
+                       </section><!--//doc-section-->
+ 			<section id="solution" class="doc-section">
+                                <h2 class="section-title"><span class="icon icon_key_alt"></span>   La Solution</h2>
+                                <div class="section-block">
+
+                                </div><!--//section-block-->
+                       </section><!--//doc-section-->
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar">
+                        <nav id="doc-nav">
+                            <ul id="doc-menu" class="nav doc-menu hidden-xs" data-spy="affix">
+                                <li><a class="scrollto" href="#presentation">Présentation</a></li>
+                                <li><a class="scrollto" href="#expert">Niveau Expert</a></li>
+                                <li><a class="scrollto" href="#intermediaire">Niveau Intermédiaire</a></li>
+				<ul class="nav doc-sub-menu">
+		                        <li><a class="scrollto" href="#sniff">Ecoute passive du réseau</a></li>
+		                        <li><a class="scrollto" href="#examensources">L'examen des sources</a></li>
+					<li><a class="scrollto" href="#chiffrementotp">Le chiffrement</a></li>
+<li><a class="scrollto" href="#envoichiffre">L'envoi du message</a></li>				    </ul>
+                                <li><a class="scrollto" href="#debutant">Niveau Débutant</a></li>
+                                    <ul class="nav doc-sub-menu">
+		                        <li><a class="scrollto" href="#comprehension">Compréhension du protocole</a></li>
+		                        <li><a class="scrollto" href="#exploitation">Exploitation</a></li>
+				    </ul>
+                                <li><a class="scrollto" href="#solution">La Solution</a></li>
+                            </ul><!--//doc-menu-->
+                        </nav>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Développé avec <i class="fa fa-heart"></i> par Romain Cayre et Huon Duong Tran</small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+    <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>  
+    <script type="text/javascript" src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>                                                                 
+    <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+
