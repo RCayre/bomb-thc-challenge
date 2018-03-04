@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="fr" class="ie8"> <![endif]-->  
+<!--[if IE 9]> <html lang="fr" class="ie9"> <![endif]-->  
+<!--[if !IE]><!--> <html lang="fr"> <!--<![endif]-->  
+<head>
+    <title>Documentation</title>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">    
+    <link rel="shortcut icon" href="favicon.ico">  
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">   
+    <!-- Plugins CSS -->    
+    <link rel="stylesheet" href="assets/plugins/font-awesome/css/font-awesome.css">
+    <link rel="stylesheet" href="assets/plugins/prism/prism.css">
+    <link rel="stylesheet" href="assets/plugins/lightbox/dist/ekko-lightbox.min.css">
+    <link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+</head> 
+
+<body class="body-red">
+    <div class="page-wrapper">
+        <!-- ******Header****** -->
+        <header id="header" class="header">
+            <div class="container">
+                <div class="branding">
+                    <h1 class="logo">
+                        <a href="index.html">
+                            <span aria-hidden="true" class="icon_documents_alt icon"></span>
+                	    <span class="text-bold">Documentation</span>
+                        </a>
+                    </h1>
+                </div><!--//branding-->
+                <ol class="breadcrumb">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li class="active">Authentification par Cookies</li>
+                </ol>
+            </div><!--//container-->
+        </header><!--//header-->
+        <div class="doc-wrapper">
+            <div class="container">
+                <div id="doc-header" class="doc-header text-center">
+                    <h1 class="doc-title"><span aria-hidden="true" class="icon    icon_table "></span> Authentification par Cookies</h1>
+                    <div class="meta"><i class="fa fa-clock-o"></i> Dernière mise à jour: 28 Février 2018</div>
+                </div><!--//doc-header-->
+                <div class="doc-body">
+                    <div class="doc-content">
+                       <section id="presentation" class="doc-section">
+                                <h2 class="section-title">Présentation</h2>
+                                <div id="pres"  class="section-block">
+				<p>Dans ce document, nous décrivons l'étape implémentée par Hong Duong Tran mais non intégrée au challenge : il s'agissait d'une extension de l'application web, destinée à ajouter un mécanisme d'authentification par cookies avant l'exploitation de la vulnérabilité par inclusion de fichiers. L'exploitation consistait à exploiter la faiblesse d'un chiffrement en mode ECB, pour forger un cookie d'administration.</p>
+				<p>Cette étape n'a pas été intégrée pour des raisons de contraintes temporelles et de redondance avec d'autres étapes du challenge. Le code correspondant est disponible dans le dossier <code>03-WebService-Bis</code> du dépôt Github. Nous fournissons malgré tout la documentation associée.</p>
+
+
+
+ 				</div>
+		       </section>
+                       <section id="authcookies" class="doc-section">
+                       <h2 class="section-title"><span class="icon icon_cogs"></span> Authentification par cookies</h2>
+<p>Notre site Web utilise le mode ECB pour chiffrer le nom d'utilisateur, et retourne à l'utilisateur le nom d'utilisateur chiffré en tant que cookie.
+Votre mission est de retrouver un cookie de l'utilisateur "admin", afin d'obtenir un accès à la page <code>admin.php</code>.
+Nous verrons dans cette documentation comment ce comportement peut affecter l'authentification et comment elle peut être exploitée.</p>
+</section>
+                       <section id="ecb" class="doc-section">
+                       <h2 class="section-title"><span class="icon icon_cogs"></span>Le mode de chiffrement ECB</h2>
+<p><strong>ECB (Electronic codebook)</strong> est un mode de chiffrement dans lequel le message est divisé en plusieurs blocs, d'une longueur de X octets, et chaque bloc est chiffré séparément à l'aide d'une <strong>clé unique</strong>. Si la taille du message n'est pas divisible par X, le message va être complété à l'aide d'un <em>padding</em> (qui consiste à ajouter des octets de remplissage, non porteur d'informations).</p>
+<p style="text-align:center"><img src="assets/images/challenge/ecb.png" /></p>
+<p>Pendant le déchiffrement, l'opération inverse est utilisée. L'utilisation du mode ECB a de multiples implications de sécurité:</p>
+<ul>
+    <li>Les blocs provenant d'un message chiffré peuvent être supprimés sans perturber le processus de déchiffrement.</li>
+    <li>Les blocs d'un message chiffré peuvent être déplacés sans perturber le processus de déchiffrement.</li>
+</ul>
+</section>
+                       <section id="astuces" class="doc-section">
+                       <h2 class="section-title"><span class="icon icon_cogs"></span> Astuces et Indices</h2>
+
+<p>Dans ce challenge, vous n'avez pas besoin d'un mot de passe pour enregistrer un utilisateur. Pour modifier un cookie à la volée, une astuce intéressante consiste, dans un navigateur, à presser la touche <code>F12</code>, puis à sélectionner l'onglet <code>Console</code>. Cela va vous ouvrir un interpréteur de commandes javascript, qui vous permet de remplacer ou d'ajouter de nouveaux cookies en tapant, dans le champ prévu à cet effet : </p>
+<p style="text-align:center"><code>document.cookie="keyofcookie=valueofcookie"</code></p>
+<h3> Indice numéro 1 : </h3>
+<p>Créer un utilisateur <em>"aaaaaaaa"</em> (8 x a) et <em>"aaaaaaaaaaaaaaaa"</em> (16 x a).</p>
+<ol>
+  <li>Est-ce que vous vous rendez compte de quelque chose de particulier en observant les cookies <em>"auth"</em> ?</li>
+        <li>Quelle est la taille d'un bloc?</li>
+  	<li>Souvenez-vous de la première implication de sécurité citée ci-dessus, comment pourriez vous fabriquer un utilisateur pour lequel le cookie contient le cookie de "admin" ?</li>
+<li>Une fois le cookie trouvé, modifiez le à l'aide de document.cookie.</li>
+</ol> </p>
+<h3> Indice numéro 2 : </h3>
+<p>Le cookie "auth" que vous aller recevoir est de la forme <em>"Ye9iCGOuYQ%3d%3d"</em>.Le <em>"%3d%3d"</em> est la version "url encodée" de <em>"=="</em>. Il s'agit d'un bon indice pour identifier une chaîne de caractères en base64.</p>
+<p>Essayez de le décoder. En python, vous pouvez taper cette commande pour décoder une URL :</p>
+<p style="text-align:center"><code>python -c "print(__import__('urllib.parse').parse.unquote('CookieURLencoded'))"</code></p>
+<p> Puis vous pouvez utiliser le nouveau cookie dans cette commande : </p>
+<p style="text-align:center"><code>python -c "print(__import__('base64').b64decode('YourCookieHere'))"</code></p>
+<p>Voici un exemple :</p>
+<pre><code>python -c "print(__import__('urllib.parse').parse.unquote('Ye9iCGOuYQ%3d%3d'))"
+
+> Ye9iCGOuYQ==
+
+python -c "print(__import__('base64').b64decode('Ye9iCGOuYQ=='))"
+
+> b'a\xefb\x08c\xaea'</code></pre>
+<p> A partir de ces éléments, nous pouvons essayer de répondre à la question : "Quelle est la taille d'un bloc ?"</p>
+<p>
+Pour réponse à cette question, continuons notre exemple. Le résultat de b64decode est sous forme b' ' car python3 distingue les <em>bytes</em> (préfixés par b' ') et les <em>string</em>. Les 2 caractères suivant le \x forment donc 1 byte. Toutes les valeurs ne peuvent être représentées sous forme ASCII : elles se présentent donc sous forme hexadécimale avec \x comme préfixe. Donc ici, b'a\xefb\x08c\xaea' a 7 bytes comme suit : <code>['a','\xef','b','\x08','c','\xae','a']</code>.</p>
+<p>Après avoir obtenu la taille d'un bloc, vous pouvez par exemple créer un utilisateur "a...aadmin" avec "a...a" ayant la longueur d'un bloc, et ensuite extraire le bloc correspondant au cookie de "admin".</p>
+<p>
+Vous pouvez écrire vous même un script pour réaliser cette exploitation, ou utiliser notre script <code>authBypass.py</code>.</p>
+</section>
+
+ <section id="solution" class="doc-section">
+                       <h2 class="section-title"><span class="icon icon_cogs"></span> Solution</h2>
+
+<p>Dans cette partie, nous allons présenter la solution pour bypasser l'authentification par cookies chiffré grâce au mode ECB. </p>
+<p>Tout d'abord, nous pouvons commencer par créer deux comptes aaaaaaaa et aaaaaaaaaaaaaaaa et comparer le cookie envoyé par l'application : </p>
+<div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Username:</th>
+                                                    <th>aaaaaaaa</th>
+                                                    <th>aaaaaaaaaaaaaaaa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Cookie:</th>
+                                                    <td>RdrBnAuTHWcEHvbhgcSzgg%3D%3D</td>
+                                                    <td>RdrBnAuTHWdF2sGcC5MdZwQe9uGBxLOC</td>
+                                                    
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+<p>Le signe <em>%3D%3D</em> signifie (si on décode l'encodage URL) == , il s'agit donc d'un bon indicateur de chaîne codée en base64. Donc nos cookies, une fois décodé de l'encodage URL, sont les suivants :</p>
+<div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Username:</th>
+                                                    <th>aaaaaaaa</th>
+                                                    <th>aaaaaaaaaaaaaaaa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Cookie:</th>
+                                                    <td>RdrBnAuTHWcEHvbhgcSzgg==</td>
+                                                    <td>RdrBnAuTHWdF2sGcC5MdZwQe9uGBxLOC</td>
+                                                    
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+<p>Si on décode les deux cookies en base64, nous obtenons les chaînes suivantes: </p>
+<div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Username:</th>
+                                                    <th>aaaaaaaa</th>
+                                                    <th>aaaaaaaaaaaaaaaa</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th scope="row">Cookie:</th>
+                                                    <td><strong>E\xda\xc1\x9c\x0b\x93\x1dg</strong>\x04\x1e\xf6\xe1\x81\xc4\xb3\x82</td>
+                                                    <td><strong>E\xda\xc1\x9c\x0b\x93\x1dgE\xda\xc1\x9c\x0b\x93\x1dg</strong>\x04\x1e\xf6\xe1\x81\xc4\xb3\x82</td>
+                                                    
+                                                </tr>
+                                                
+                                            </tbody>
+                                        </table>
+                                    </div><!--//table-responsive-->
+<p>On voit bien ici que le bloc <code>E\xda\xc1\x9c\x0b\x93\x1dg</code> est répété deux fois pour l'utilisateur <em>aaaaaaaaaaaaaaaa</em>, donc on constate ainsi que la taille d'un bloc est de 8 octets.</p>
+<p>
+Une petit remarque : Les cookies se terminent par <code>\x04\x1e\xf6\xe1\x81\xc4\xb3\x82</code> car le <code>\0</code> situé à la fin d'une chaîne de caractères forme un nouveau bloc, la longueur totale devient 9(17) et doit donc ensuite être paddé à 16(24).</p>
+<div class="row">
+                                        <div class="col-md-2 col-sm-2 col-xs-12">
+				<img src="assets/images/challenge/form.png" />
+					</div>
+<div  class="col-md-10 col-sm-10 col-xs-12">
+<p>
+On peut créer un utilisateur <em>helo</em>, ce qui nous donne <code>9F\xdbY\xb6\xb5o\x80</code> car la longueur totale ne dépassant pas 8 octets, le message clair a été paddé à 8 octets.</p>
+<p>Comme on n'a pas le droit de créer directement un utilisateur <em>admin</em>, on va créer <em>aaaaaaaaadmin</em>, insérant ainsi 8 octets quelconques en premier, pour remplacer le premier bloc, puis les 8 octets suivants qui correspondent donc au cookie d'authentification de l'utilisateur <em>admin</em>.</div></div>
+<p>Après avoir créé <em>aaaaaaaaadmin</em>, on reçoit ce cookie :</p>
+<pre><code>> document.cookie
+
+< "auth=RdrBnAuTHWdJB8In%2Bl73Ow%3D%3D"</code></pre>
+<p>Après avoir décodé l'encodage URL et la base64, on obtient donc :</p>
+<pre><code>python3 -c "print(__import__('urllib.parse').parse.unquote('RdrBnAuTHWdJB8In%2Bl73Ow%3D%3D'))"
+
+> RdrBnAuTHWdJB8In+l73Ow==
+
+python3 -c "print(__import__('base64').b64decode('RdrBnAuTHWdJB8In+l73Ow=='))"
+
+> b"E\xda\xc1\x9c\x0b\x93\x1dgI\x07\xc2'\xfa^\xf7;"</code></pre>
+<p>Il ne nous reste plus qu'à sélectionner les 8 derniers octets, et à les réencoder en base64 : </p>
+<pre><code>python3 -c "print(__import__('base64').b64encode(b'I\x07\xc2\'\xfa^\xf7;'))"
+
+> b'SQfCJ/pe9zs='</code></pre>
+<p>Le cookie d'authentification de l'utilisateur <em>admin</em> est donc le suivant :<code>SQfCJ/pe9zs=</code>. On peut noter que, comme la forme hexadécimale du cookie contient <em>'</em>, il est nécessaire de l'échapper si on procède à chaque étape individuellement.</p>
+<p>Pour automatiser cette exploitation, nous avons développé le script <code>authBypass.py</code>, disponible dans le répertoire <code>03-WebService-Bis</code>.
+<pre><code class="language-python">import requests
+import urllib
+import base64
+host = "http://192.168.73.140"
+# Enregistre user "aaaaaaaaadmin" et obtenir le cookie auth
+r = requests.post(host+"/register.php",data = {"name" : "aaaaaaaaadmin"},allow_redirects=False)
+cookie = r.headers["Set-Cookie"]
+print("All cookie : ", cookie)
+#get auth cookie
+auth = cookie.split(";")
+auth = auth[0].split("=")
+auth = urllib.parse.unquote(auth[1])
+print("Cookie authentication is : ",auth)
+# Decode auth
+auth = base64.b64decode(auth)
+# get admin cookie block
+auth = auth[8:]
+auth = base64.b64encode(auth)
+print("Cookie for admin is : ",auth)
+</code></pre>
+</section>
+
+                    </div><!--//doc-content-->
+                    <div class="doc-sidebar">
+                        <nav id="doc-nav">
+                            <ul id="doc-menu" class="nav doc-menu hidden-xs" data-spy="affix">
+                                <li><a class="scrollto" href="#presentation">Présentation</a></li>
+                                <li><a class="scrollto" href="#authcookies">Authentification par cookies</a></li>
+                                <li><a class="scrollto" href="#ecb">Le mode de chiffrement ECB</a></li>
+                                <li><a class="scrollto" href="#astuces"> Astuces et Indices</a></li>				   
+                                <li><a class="scrollto" href="#solution">La solution</a></li>
+                                    
+                            </ul><!--//doc-menu-->
+                        </nav>
+                    </div><!--//doc-sidebar-->
+                </div><!--//doc-body-->              
+            </div><!--//container-->
+        </div><!--//doc-wrapper-->
+        
+
+        
+    </div><!--//page-wrapper-->
+    
+    <footer id="footer" class="footer text-center">
+        <div class="container">
+            <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can check out other license options via our website: themes.3rdwavemedia.com */-->
+            <small class="copyright">Développé avec <i class="fa fa-heart"></i> par Romain Cayre et Huon Duong Tran</small>
+            
+        </div><!--//container-->
+    </footer><!--//footer-->
+    
+    <script type="text/javascript" src="assets/plugins/jquery-1.12.3.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="assets/plugins/prism/prism.js"></script>    
+    <script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>  
+    <script type="text/javascript" src="assets/plugins/lightbox/dist/ekko-lightbox.min.js"></script>                                                                 
+    <script type="text/javascript" src="assets/plugins/jquery-match-height/jquery.matchHeight-min.js"></script>
+    <script type="text/javascript" src="assets/js/main.js"></script>
+    
+</body>
+</html> 
+
