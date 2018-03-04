@@ -39,6 +39,8 @@ sudo chown -R pi:www-data /var/www/html/
 sudo chmod -R 770 /var/www/html/
 # Installation d'un php.ini permissif (allow_url_include On notamment)
 sudo cp ./php.ini /etc/php/7.0/apache2/php.ini
+# Mise en place d'un access.log accessible en lecture
+sudo chmod 777 /var/log/apache2/access.log
 
 # Lancement d'apache au démarrage
 sudo update-rc.d apache2 defaults
