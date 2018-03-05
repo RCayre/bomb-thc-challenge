@@ -155,7 +155,7 @@
 	<ul style="list-style-type:none;color:darkgrey">
 	<li><span class="icon icon_document"></span> activity_main.xml <em style="color:black">: fichier décrivant l'interface graphique</em></li>
 	<li><span class="icon icon_document"></span> AndroidManifest.xml<em style="color:black">: manifeste du projet android</em></li>
-	<li><span class="icon icon_document"></span> app-release-unsigned.apk<em style="color:black">: fichier d'installation de l'application</em></li>
+	<li><span class="icon icon_document"></span> app-release.apk<em style="color:black">: fichier d'installation de l'application</em></li>
 	<li><span class="icon icon_document"></span> MainActivity.java<em style="color:black">: code source du projet</em></li>
 	<li><span class="icon icon_document"></span> README.md<em style="color:black">: fichier d'aide</em></li>
 	</ul>
@@ -389,12 +389,12 @@ $ sudo reboot
 <p>Pour terminer la configuration du téléphone, il faut installer l'application android. Pour cela, il est possible d'utiliser l'utilitaire <code>adb</code> (<em>Android Debug Bridge</em>).</p>
 <p>Cette mise en place nécessite que le mode développeur ait été activé sur le téléphone. Pour activer le mode développeur, il faut se rendre dans les paramètres du téléphone, sélectionner <em>A propos du téléphone</em>, taper 5 fois sur <em>Numéro de Build</em>. Cela permet l'apparition du menu <em>Option pour les développeurs</em>. Dans celui ci, on pourra sélectionner la case <em>Débogage USB</em>, puis activer l'installation de sources inconnues.</p>
 	<p style="text-align:center"><img src="assets/images/challenge/android5.jpg" /></p>		
-<p>Il est désormais très simple d'installer notre application. Après avoir installé l'utilitaire <code>adb</code> (<code>sudo apt install adb</code> sur Debian / Ubuntu, <code>sudo dnf install adb</code> sur Fedora), on peut taper les commandes suivantes pour procéder à l'installation : </p>	
+<p>Il est désormais très simple d'installer notre application. Après avoir installé l'utilitaire <code>adb</code> (<code>sudo apt install adb</code> sur Debian / Ubuntu, <code>sudo dnf install adb</code> sur Fedora), on peut taper les commandes suivantes pour procéder à l'installation (il est à noter qu'une validation manuelle de la clé RSA de l'ordinateur doit être réalisée sur le téléphone) : </p>	
 <pre><code>
 $ adb devices
 List of devices attached 
 040140621600C00D	device
-$ adb install -r 02-AndroidApp/app-release-unsigned.apk
+$ adb install -r 02-AndroidApp/app-release.apk
 Success
 </code></pre>
 <p>L'application est désormais installée sur le téléphone !</p>
