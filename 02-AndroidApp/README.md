@@ -1,4 +1,4 @@
-# Challenge - 2. Application Android
+# 2. Application Android
 ## Hong Duong Tran
 Application Android de commande de la bombe.
 Ce composant logiciel est nécessaire à l'étape *3. Compréhension du Protocole*.
