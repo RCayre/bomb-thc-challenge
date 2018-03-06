@@ -1,19 +1,19 @@
-# Challenge - Step 4
+# 4. Application Arduino
 ## Romain Cayre
-Programme Arduino - commande de l'écran tactile de la bombe, scripts de communication python RPi / Arduino
+Programme Arduino, contenant la logique de la bombe : commande de l'écran tactile de la bombe et scripts de communication python RPi / Arduino.
+Ce composant logiciel est nécessaire à l'étape *3. Compréhension du Protocole*.
 
-- Programme arduino : bomb.ino (gère l'affichage du compteur sur l'écran LCD, la gestion des commandes en serial)
-- Programme python : listen.py (enregistre la sortie de la communication serial dans un fichier compteur - lancer en background)
-- Programme python : write.py <cmd> (envoie la commande cmd par la liaison serial)
-Note : le script listen.py doit être lancé en background au préalable, sinon l'utilisation de write.py provoque un reset du compteur
+## Bugs rencontrés :
+* La carte arduino reset une fois atteinte la valeur de compteur ~ 26:00 <**SEMBLE REGLÉ**>
+=> *Problème de saturation de la RAM* : ajout d'un `free` dans la procédure `displayTime()` et d'un `Serial.flush()` après le `delay(1000)`.
+* le script *listen.py* doit être lancé en background au préalable, sinon l'utilisation de *write.py* provoque un reset du compteur (problématique connue de la communication série de l'Arduino)
 
 
-# TODO:
-* remplacer les commandes en clair par les commandes chiffrées
-* harmoniser l'utilisation des chaînes de caractères (utilisation de char\* / String seulement)
-* permettre l'utilisation d'un /dev/??? différent
-* commenter les scripts
+## Liste des fichiers disponibles
+* __bomb.ino__ : code source du programme Arduino, gère l'affichage du compteur sur l'écran LCD, la gestion des commandes en serial
+* __listen.py__ : script python de lecture de la liaison série (vers Arduino)
+* __write.py__ : script python d'écriture sur la liaison série (vers Arduino)
+* __libs__ : librairies nécessaires au bon fonctionnement de l'écran tactile
 
-# Bugs rencontrés :
-* La carte arduino reset une fois atteinte la valeur de compteur ~ 56:00 [SEMBLE REGLÉ]
-=> Problème de saturation de la RAM : ajout d'un free dans la procédure displayTime() et d'un Serial.flush() après le delay(1000)
+## Documentation associée
+La documentation complète de l'étape utilisant ce composant logiciel est disponible dans le fichier *docs/protocole.html*.
